@@ -362,6 +362,11 @@ ul#nav li.current a { color: #4186A7; }
   	-webkit-animation: java 3s ease;
 }
 
+/*----------------------------------------------*/
+/*	Skill Bar Animations
+/*----------------------------------------------*/
+
+
 
 /* React Animations */
 @keyframes react {
