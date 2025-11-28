@@ -1,8 +1,9 @@
 import { FC, ReactNode } from "react";
 import CTAButton from "@/ui/CTAButton";
+import SectionContainer from "@/ui/SectionContainer";
 import clsx from "clsx";
 
-interface HeroProps {
+interface HeroSectionProps {
   title: string;
   subtitle?: string;
   description?: string;
@@ -22,7 +23,7 @@ interface HeroProps {
   className?: string;
 }
 
-const Hero: FC<HeroProps> = ({
+const HeroSection: FC<HeroSectionProps> = ({
   title,
   subtitle,
   description,
@@ -36,7 +37,15 @@ const Hero: FC<HeroProps> = ({
   className,
 }) => {
   return (
-    <section className={clsx("relative min-h-[600px] md:min-h-[700px] lg:min-h-[800px] flex items-center justify-center overflow-hidden", className)}>
+    <SectionContainer
+      sectionName="hero"
+      noPadding={true}
+      isFullWidth={true}
+      sectionClasses={clsx(
+        "relative min-h-[600px] md:min-h-[700px] lg:min-h-[800px] flex items-center justify-center overflow-hidden",
+        className
+      )}
+    >
       {/* Background Image */}
       {backgroundImage && (
         <div
@@ -122,8 +131,8 @@ const Hero: FC<HeroProps> = ({
           />
         </svg>
       </div>
-    </section>
+    </SectionContainer>
   );
 };
 
-export default Hero;
+export default HeroSection;

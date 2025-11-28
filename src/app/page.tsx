@@ -1,4 +1,4 @@
-import Hero from "@/components/Hero";
+import HeroSection from "@/views/HeroSection";
 import AboutSection from "@/views/AboutSection";
 import ServicesSection from "@/views/ServicesSection";
 import ProcessSection from "@/views/ProcessSection";
@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <main className="min-h-screen">
       {/* Hero Section */}
-      <Hero
+      <HeroSection
         title="Bringing Your Product Ideas to Life"
         subtitle="Welcome to YK Innovations"
         description="Expert mechanical engineering and rapid prototyping services. We transform concepts into functional prototypes, bridging the gap from design to manufacturing."
