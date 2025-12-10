@@ -63,16 +63,12 @@ export default async function PublicLayout({
   }
 
   return (
-    <html lang="en" suppressHydrationWarning className="scroll-smooth">
-      <body className={cn(inter.className, "h-full")}>
-        <ThemeProvider>
-          <Navbar>
-            <NavLinks />
-          </Navbar>
-          {children}
-          <Footer footerData={footerData} companyInfo={companyInfo} />
-        </ThemeProvider>
-      </body>
-    </html>
+    <ThemeProvider>
+      <Navbar>
+        <NavLinks />
+      </Navbar>
+      {children}
+      <Footer footerData={footerData} companyInfo={companyInfo} />
+    </ThemeProvider>
   );
 }

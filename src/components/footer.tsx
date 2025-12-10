@@ -1,12 +1,16 @@
 "use client";
 import Link from "next/link";
 import { navLinkList } from "@/constants/navLinks";
-import { FC } from "react";
+import { FC, useState, useEffect } from "react";
 import { Logo } from "@/ui/icons/logo";
 import type { FooterProps } from "@/types";
 
 const Footer: FC<FooterProps> = ({ footerData, companyInfo }) => {
-  const currentYear = new Date().getFullYear();
+  const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
+
+  useEffect(() => {
+    setCurrentYear(new Date().getFullYear());
+  }, []);
 
   // Extract data with fallbacks
   const companyName = companyInfo?.companyName || "YK Innovations";
