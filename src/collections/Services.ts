@@ -8,6 +8,9 @@ export const Services: CollectionConfig = {
   },
   access: {
     read: () => true,
+    create: ({ req: { user } }) => !!user,
+    update: ({ req: { user } }) => !!user,
+    delete: ({ req: { user } }) => !!user,
   },
   fields: [
     {
@@ -27,14 +30,17 @@ export const Services: CollectionConfig = {
       type: 'select',
       required: true,
       options: [
-        { label: 'Web Development', value: 'web' },
-        { label: 'Mobile', value: 'mobile' },
-        { label: 'Cloud', value: 'cloud' },
-        { label: 'API', value: 'api' },
-        { label: 'Security', value: 'security' },
-        { label: 'Performance', value: 'performance' },
-        { label: 'Database', value: 'database' },
-        { label: 'Analytics', value: 'analytics' },
+        { label: 'Lightning Bolt - CAD Modeling', value: 'lightning-bolt' },
+        { label: 'Chip - Engineering Consulting', value: 'chip' },
+        { label: 'Ruler - Product Development', value: 'ruler' },
+        { label: 'Triangle Ruler - Rapid Prototyping', value: 'triangle-ruler' },
+        { label: 'PCB Circuit Board - PCB Development', value: 'pcb' },
+        { label: 'Code Brackets', value: 'code-brackets' },
+        { label: 'Cube - Electronics Integration', value: 'cube' },
+        { label: 'Printer - 3D Printing', value: 'printer' },
+        { label: 'Cog - Manufacturing', value: 'cog' },
+        { label: 'Beaker - Testing & Validation', value: 'beaker' },
+        { label: 'Lightbulb - Innovation', value: 'lightbulb' },
       ],
       admin: {
         position: 'sidebar',

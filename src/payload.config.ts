@@ -16,11 +16,11 @@ import { Testimonials } from "./collections/Testimonials";
 // Import globals
 import { HeroSection } from "./globals/HeroSection";
 import { ProjectsSection } from "./globals/ProjectsSection";
-import { TeamSection } from "./globals/TeamSection";
-import { NeighborhoodSection } from "./globals/NeighborhoodSection";
 import { ContactSection } from "./globals/ContactSection";
-import { TeamPage } from "./globals/TeamPage";
-import { NeighborhoodPage } from "./globals/NeighborhoodPage";
+import { AboutSection } from "./globals/AboutSection";
+import { ProcessSection } from "./globals/ProcessSection";
+import { FooterSection } from "./globals/FooterSection";
+import { CompanyInfo } from "./globals/CompanyInfo";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -33,25 +33,40 @@ export default buildConfig({
     },
     disable: false,
   },
+  // CORS configuration - allows cookies from the correct domain
+  cors: [
+    process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000",
+    "https://*.netlify.app",
+  ],
+  // CSRF protection configuration - prevents CSRF token validation failures
+  // Note: Wildcards don't work in CSRF validation (requires exact domain match)
+  // Remove trailing slash to match browser Origin header format
+  csrf: [
+    (process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000").replace(/\/$/, ""),
+  ],
   collections: [Users, Media, Projects, Services, Testimonials],
   globals: [
     HeroSection,
     ProjectsSection,
-    TeamSection,
-    NeighborhoodSection,
     ContactSection,
-    TeamPage,
-    NeighborhoodPage,
+    AboutSection,
+    ProcessSection,
+    FooterSection,
+    CompanyInfo,
   ],
   editor: lexicalEditor({}),
-  secret: process.env.PAYLOAD_SECRET || "",
+  secret: process.env.PAYLOAD_SECRET || "dev-secret-key-change-in-production",
   typescript: {
     outputFile: path.resolve(dirname, "../payload-types.ts"),
   },
   db: postgresAdapter({
     pool: {
-      connectionString: process.env.DATABASE_URL || "",
+      connectionString:
+        process.env.NETLIFY_DATABASE_URL ||
+        "postgresql://payload:payload@localhost:5432/nextjs_tailwind_daisyui",
     },
+    push: false, // Disable automatic schema sync - use migrations instead
+    migrationDir: path.resolve(dirname, './migrations'),
   }),
   serverURL: process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000",
   sharp,

@@ -2,34 +2,31 @@ import { FC } from "react";
 import Image from "next/image";
 import SectionContainer from "@/ui/SectionContainer";
 import CTAButton from "@/ui/CTAButton";
+import type { AboutSectionProps } from "@/types";
 
-interface AboutSectionProps {
-  title?: string;
-  subtitle?: string;
-  description?: string;
-  image?: string;
-  imageAlt?: string;
-  stats?: Array<{
-    value: string;
-    label: string;
-  }>;
-  cta?: {
-    text: string;
-    href: string;
-  };
-  imagePosition?: "left" | "right";
-}
+const AboutSection: FC<AboutSectionProps> = ({ data }) => {
+  const {
+    title,
+    subtitle,
+    description,
+    image,
+    imageAlt,
+    stats,
+    cta,
+    imagePosition = "right",
+  } = data;
 
-const AboutSection: FC<AboutSectionProps> = ({
-  title = "About Us",
-  subtitle = "Who We Are",
-  description = "We are a team of experienced mechanical engineers dedicated to helping businesses bring innovative products to market through expert prototyping and engineering support.",
-  image = "https://picsum.photos/800/600?random=2",
-  imageAlt = "About Us",
-  stats,
-  cta,
-  imagePosition = "right",
-}) => {
+  // Extract image URL if it's a Media object
+  const imageUrl =
+    typeof image === "object" && image !== null
+      ? (image as any).url || "https://picsum.photos/800/600?random=2"
+      : image || "https://picsum.photos/800/600?random=2";
+
+  // Use default alt text if imageAlt is empty or undefined
+  const altText = imageAlt && imageAlt.trim() !== ""
+    ? imageAlt
+    : "YK Innovations mechanical engineering and prototyping workspace";
+
   return (
     <SectionContainer sectionName="about" background="alt">
       <div className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${imagePosition === "left" ? "lg:flex-row-reverse" : ""}`}>
@@ -58,23 +55,14 @@ const AboutSection: FC<AboutSectionProps> = ({
               ))}
             </div>
           )}
-
-          {/* CTA */}
-          {cta && (
-            <div className="mt-8">
-              <CTAButton href={cta.href} variant="primary" size="md">
-                {cta.text}
-              </CTAButton>
-            </div>
-          )}
         </div>
 
         {/* Image */}
         <div className={imagePosition === "left" ? "lg:order-1" : ""}>
           <div className="relative h-[400px] md:h-[500px] rounded-lg overflow-hidden shadow-xl">
             <Image
-              src={image}
-              alt={imageAlt}
+              src={imageUrl}
+              alt={altText}
               fill
               className="object-cover"
               sizes="(max-width: 1024px) 100vw, 50vw"
