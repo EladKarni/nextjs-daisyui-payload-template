@@ -33,7 +33,7 @@ export const AboutSection: GlobalConfig = {
       type: "text",
       label: "Title",
       required: true,
-      defaultValue: "Engineering Innovation, One Prototype at a Time",
+      defaultValue: "Your Trusted Business Partner",
       admin: {
         description: "Main heading for the about section",
       },
@@ -44,7 +44,7 @@ export const AboutSection: GlobalConfig = {
       label: "Description",
       required: true,
       defaultValue:
-        "At YK Innovations, we specialize in mechanical engineering and rapid prototyping services that bring your product ideas to life. Our team of expert engineers combines cutting-edge technology with years of experience to deliver high-quality prototypes and manufacturing solutions.",
+        "At Acme Corporation, we specialize in delivering comprehensive business solutions that drive success. Our team of experienced professionals combines industry expertise with innovative approaches to help your business thrive in today's competitive landscape.",
       admin: {
         description: "Main description text",
       },
@@ -107,9 +107,9 @@ export const AboutSection: GlobalConfig = {
         },
       ],
       defaultValue: [
-        { value: "150+", label: "Prototypes Delivered" },
-        { value: "40+", label: "Business Partners" },
-        { value: "8+", label: "Years Engineering" },
+        { value: "500+", label: "Projects Completed" },
+        { value: "200+", label: "Happy Clients" },
+        { value: "15+", label: "Years Experience" },
       ],
       admin: {
         description: "Key statistics to display",

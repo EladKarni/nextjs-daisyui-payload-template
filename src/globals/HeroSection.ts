@@ -22,7 +22,7 @@ export const HeroSection: GlobalConfig = {
       type: "text",
       label: "Subtitle",
       required: false,
-      defaultValue: "Welcome to YK Innovations",
+      defaultValue: "Welcome to Excellence",
       admin: {
         description: "Small text above the main title",
       },
@@ -32,7 +32,7 @@ export const HeroSection: GlobalConfig = {
       type: "text",
       label: "Title",
       required: true,
-      defaultValue: "Bringing Your Product Ideas to Life",
+      defaultValue: "Building Tomorrow's Solutions Today",
       admin: {
         description: "Main headline displayed in the hero section",
       },
@@ -42,7 +42,7 @@ export const HeroSection: GlobalConfig = {
       type: "textarea",
       label: "Description",
       required: false,
-      defaultValue: "Expert mechanical engineering and rapid prototyping services that transform your concepts into functional prototypes.",
+      defaultValue: "We deliver innovative business solutions tailored to your unique needs. Partner with us to drive growth and achieve excellence.",
       admin: {
         description: "Hero description text",
       },
@@ -57,7 +57,7 @@ export const HeroSection: GlobalConfig = {
           type: "text",
           label: "Button Text",
           required: false,
-          defaultValue: "Start Your Project",
+          defaultValue: "Get Started",
         },
         {
           name: "href",
@@ -78,7 +78,7 @@ export const HeroSection: GlobalConfig = {
           type: "text",
           label: "Button Text",
           required: false,
-          defaultValue: "View Our Prototypes",
+          defaultValue: "View Our Work",
         },
         {
           name: "href",

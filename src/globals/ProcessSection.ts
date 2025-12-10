@@ -95,30 +95,30 @@ export const ProcessSection: GlobalConfig = {
         {
           number: "01",
           icon: "lightbulb",
-          title: "Concept Development",
+          title: "Discovery & Planning",
           description:
-            "We begin by understanding your product requirements, target market, and functional specifications. Together, we refine your concept and establish clear design criteria.",
+            "We begin by understanding your business goals, challenges, and requirements. Together, we analyze your needs and develop a strategic roadmap for success.",
         },
         {
           number: "02",
           icon: "design",
-          title: "Design & Engineering",
+          title: "Strategy & Design",
           description:
-            "Our engineers create detailed CAD models, perform structural analysis, and optimize the design for functionality, manufacturability, and cost-effectiveness.",
+            "Our experts create comprehensive solutions tailored to your business. We design effective strategies and frameworks that align with your objectives.",
         },
         {
           number: "03",
-          icon: "flask",
-          title: "Prototyping & Testing",
+          icon: "cog",
+          title: "Implementation",
           description:
-            "We fabricate functional prototypes using 3D printing or CNC machining, then conduct thorough testing to validate design performance and identify improvements.",
+            "We execute the plan with precision and care. Our team works closely with you to implement solutions that drive results and meet your expectations.",
         },
         {
           number: "04",
-          icon: "shield",
-          title: "Production Support",
+          icon: "rocket",
+          title: "Launch & Support",
           description:
-            "We provide manufacturing documentation, vendor recommendations, and ongoing engineering support to ensure a smooth transition from prototype to full production.",
+            "We ensure a successful launch and provide ongoing support. Our commitment continues beyond implementation with continuous optimization and assistance.",
         },
       ],
       admin: {

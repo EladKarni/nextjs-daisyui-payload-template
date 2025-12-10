@@ -23,7 +23,7 @@ export const ProjectsSection: GlobalConfig = {
       type: "text",
       label: "Section Title",
       required: true,
-      defaultValue: "Featured Developments",
+      defaultValue: "Featured Projects",
       admin: {
         description: "Main heading for the projects section on the homepage",
       },
@@ -59,7 +59,7 @@ export const ProjectsSection: GlobalConfig = {
           type: "textarea",
           label: "Description",
           defaultValue:
-            "Explore our portfolio of prototyping and engineering projects across various industries. Each prototype demonstrates our expertise in bringing product concepts to reality.",
+            "Explore our portfolio of successful projects across various industries. Each project demonstrates our expertise in delivering innovative solutions that drive business success.",
           admin: {
             description: "Introductory text displayed below the title",
           },

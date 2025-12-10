@@ -8,7 +8,10 @@
     "start": "next start",
     "lint": "next lint",
     "db:start": "docker-compose up -d",
-    "db:stop": "docker-compose down"
+    "db:stop": "docker-compose down",
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:headed": "playwright test --headed"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "3.63.0",

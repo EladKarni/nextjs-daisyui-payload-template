@@ -1,150 +1,150 @@
 // Fallback data for when CMS is unavailable (e.g., during build without database)
 
 export const fallbackHeroData = {
-  title: "Engineering Excellence",
-  subtitle: "From Concept to Reality",
+  title: "Building Tomorrow's Solutions Today",
+  subtitle: "Welcome to Excellence",
   description:
-    "Transform your product ideas into functional prototypes with expert mechanical engineering and rapid prototyping services.",
+    "We deliver innovative business solutions that drive growth and success. Partner with us to transform your vision into reality.",
   primaryCTA: {
-    text: "Start Your Project",
+    text: "Get Started",
     href: "/#contact",
   },
   secondaryCTA: {
-    text: "View Our Work",
-    href: "/projects",
+    text: "Learn More",
+    href: "/#about",
   },
-  backgroundImage: "https://picsum.photos/1920/1080?random=1",
+  backgroundImage: "https://picsum.photos/id/0/1920/1080",
   backgroundVideo: "",
   overlay: true,
   overlayOpacity: 0.5,
 };
 
 export const fallbackAboutData = {
-  title: "About YK Innovations",
-  subtitle: "Your Partner in Product Development",
+  title: "Your Trusted Business Partner",
+  subtitle: "About Us",
   description:
-    "We specialize in transforming innovative ideas into tangible products. With expertise in CAD design, rapid prototyping, and manufacturing optimization, we help startups and established companies bring their visions to life.",
+    "We are dedicated to delivering exceptional business solutions tailored to your unique needs. With years of experience and a commitment to excellence, we help organizations achieve their goals through innovative strategies and proven methodologies.",
   stats: [
     { value: "100+", label: "Projects Completed" },
     { value: "50+", label: "Happy Clients" },
-    { value: "10+", label: "Years Experience" },
+    { value: "10+", label: "Years of Experience" },
   ],
   imagePosition: "right" as const,
 };
 
 export const fallbackProjectsPageData = {
-  title: "Featured Developments",
+  title: "Featured Work",
   pageHeader: {
-    label: "Portfolio",
-    title: "Our Projects",
+    label: "Our Portfolio",
+    title: "Projects & Case Studies",
     description:
-      "Explore our portfolio of prototyping and engineering projects across various industries. Each prototype demonstrates our expertise in bringing product concepts to reality.",
+      "Explore our recent work and success stories. Each project demonstrates our commitment to delivering exceptional results.",
   },
 };
 
 export const fallbackProcessData = {
-  title: "Our Process",
-  subtitle: "From Concept to Production",
+  title: "How We Work",
+  subtitle: "Our Process",
   steps: [
     {
       number: "01",
       icon: "lightbulb",
-      title: "Concept Development",
+      title: "Discovery",
       description:
-        "We work with you to understand your vision and requirements, translating ideas into actionable design concepts.",
+        "We begin by understanding your needs, goals, and challenges to create a solid foundation for success.",
     },
     {
       number: "02",
       icon: "pencil-ruler",
-      title: "CAD Design & Engineering",
+      title: "Planning",
       description:
-        "Our team creates detailed 3D models and engineering drawings optimized for manufacturing and functionality.",
+        "We develop a comprehensive strategy tailored to your objectives, ensuring alignment at every step.",
     },
     {
       number: "03",
       icon: "cube",
-      title: "Rapid Prototyping",
+      title: "Execution",
       description:
-        "Using 3D printing and CNC machining, we quickly produce functional prototypes for testing and validation.",
+        "Our team delivers solutions with precision and expertise, maintaining quality throughout the process.",
     },
     {
       number: "04",
       icon: "check-circle",
-      title: "Testing & Refinement",
+      title: "Delivery",
       description:
-        "We iterate based on testing results, ensuring your product meets all requirements before production.",
+        "We ensure smooth deployment and provide ongoing support to guarantee your continued success.",
     },
   ],
 };
 
 export const fallbackServices = [
   {
-    title: "3D CAD Modeling & Enclosure Design",
+    title: "Strategy Consulting",
     description:
-      "Detailed SolidWorks modeling for enclosures, assemblies, mechanisms, and product-grade housings ready for prototyping.",
-    icon: "lightning-bolt",
+      "Expert guidance to help you navigate complex business challenges and opportunities with confidence.",
+    icon: "lightbulb",
   },
   {
-    title: "Engineering Consulting & Problem Solving",
+    title: "Digital Development",
     description:
-      "Technical guidance, feasibility evaluations, mechanism troubleshooting, and prototype optimization for early-stage products.",
+      "Custom software solutions built with modern technologies and best practices for optimal performance.",
     icon: "chip",
   },
   {
-    title: "Full Turnkey Product Development",
+    title: "Business Analytics",
     description:
-      "End-to-end engineering support. From concept and design to electronics, firmware, and a fully working prototype. A complete solution handled in-house.",
+      "Data-driven insights to inform decision-making and drive growth through actionable intelligence.",
     icon: "ruler",
   },
   {
-    title: "Custom PCB Development",
+    title: "Creative Design",
     description:
-      "Design and development of small-scale printed circuit boards for prototypes, sensor modules, control systems, and embedded devices.",
-    icon: "pcb",
+      "Beautiful, user-centered designs that elevate your brand and engage your audience effectively.",
+    icon: "lightning-bolt",
   },
   {
-    title: "Electronics Integration",
+    title: "Technical Support",
     description:
-      "Seamless integration of sensors, motors, actuators, displays, and control boards into complete electromechanical systems, even without mass-production electronics.",
+      "Reliable support to keep your systems running smoothly with minimal downtime and maximum efficiency.",
     icon: "cube",
   },
   {
-    title: "Rapid Prototyping",
+    title: "Project Management",
     description:
-      "Fast, functional prototypes using 3D printing, CNC machining, and modular electronics. From concept to working model in months, not years.",
+      "Expert coordination to ensure your projects are delivered on time, on budget, and exceed expectations.",
     icon: "triangle-ruler",
   },
 ];
 
 export const fallbackProjects = [
   {
-    title: "Smart Kitchen Appliance",
+    title: "Enterprise Dashboard",
     description:
-      "A compact, IoT-enabled kitchen appliance designed for modern consumers.",
-    slug: "smart-kitchen-appliance",
-    image: "https://picsum.photos/1200/800?random=3",
-    category: "Consumer Product",
-    technologies: ["SolidWorks", "FEA Analysis", "3D Printing"],
+      "A comprehensive analytics platform for large organizations to track performance and make data-driven decisions.",
+    slug: "enterprise-dashboard",
+    image: "https://picsum.photos/id/0/1200/800",
+    category: "Digital Solutions",
+    technologies: ["React", "TypeScript", "Node.js"],
     featured: true,
   },
   {
-    title: "Medical Device Prototype",
+    title: "Mobile Commerce App",
     description:
-      "FDA-compliant prototype for a novel medical diagnostic device.",
-    slug: "medical-device",
-    image: "https://picsum.photos/1200/800?random=4",
-    category: "Medical",
-    technologies: ["Biocompatible Materials", "CNC Machining"],
+      "A seamless shopping experience for modern consumers with intuitive design and powerful features.",
+    slug: "mobile-commerce-app",
+    image: "https://picsum.photos/id/1/1200/800",
+    category: "Mobile Development",
+    technologies: ["React Native", "API Integration", "Payment Systems"],
     featured: true,
   },
   {
-    title: "Industrial Automation Component",
+    title: "Brand Identity System",
     description:
-      "Custom-designed component for manufacturing automation system.",
-    slug: "industrial-automation",
-    image: "https://picsum.photos/1200/800?random=5",
-    category: "Industrial",
-    technologies: ["SolidWorks", "Metal 3D Printing"],
+      "A complete visual identity for a growing startup, including logo design, style guides, and brand assets.",
+    slug: "brand-identity-system",
+    image: "https://picsum.photos/id/180/1200/800",
+    category: "Design",
+    technologies: ["Design Systems", "Branding", "UI/UX"],
     featured: true,
   },
 ];
@@ -152,23 +152,23 @@ export const fallbackProjects = [
 export const fallbackTestimonials = [
   {
     quote:
-      "YK Innovations transformed our concept into a production-ready prototype in record time. Their expertise in DFM saved us thousands in manufacturing costs.",
-    author: "Sarah Chen",
+      "Working with Acme Corporation transformed our business. Their expertise and dedication exceeded our expectations at every turn.",
+    author: "Alex Johnson",
     role: "CEO",
-    company: "TechStart Inc.",
+    company: "TechCorp Industries",
   },
   {
     quote:
-      "The team's attention to detail and engineering expertise is exceptional. They helped us navigate complex FDA requirements for our medical device.",
-    author: "Dr. Michael Rodriguez",
-    role: "Founder",
-    company: "MedTech Solutions",
+      "The team delivered exceptional results on time and within budget. Their professionalism and attention to detail are remarkable.",
+    author: "Maria Garcia",
+    role: "Director of Operations",
+    company: "Global Solutions Inc",
   },
   {
     quote:
-      "From initial CAD designs to functional prototypes, YK Innovations delivered quality work on schedule. Highly recommended!",
-    author: "Jennifer Williams",
-    role: "Product Manager",
-    company: "Consumer Goods Co.",
+      "Professional, knowledgeable, and results-driven. Acme Corporation is a true partner in our success.",
+    author: "James Chen",
+    role: "VP of Technology",
+    company: "Enterprise Systems Ltd",
   },
 ];

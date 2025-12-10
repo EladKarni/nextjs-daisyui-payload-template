@@ -39,3 +39,9 @@ next-env.d.ts
 /public/media
 payload-types.ts
 .payload
+
+# playwright
+/test-results/
+/playwright-report/
+test-output.log
+playwright/.cache/

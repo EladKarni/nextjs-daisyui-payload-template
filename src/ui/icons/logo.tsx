@@ -33,8 +33,8 @@ const Logo = ({
 
   return (
     <Image
-      src="/logo.png"
-      alt="YK Innovations Logo"
+      src="/logo.svg"
+      alt="Acme Corporation Logo"
       className={`${shouldInvert ? "invert" : ""} ${className}`}
       width={width}
       height={height}

@@ -20,8 +20,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "YK Innovations",
-  description: "YK Innovations is here to help you bring your ideas to life",
+  title: "Acme Corporation",
+  description: "Acme Corporation is here to help you achieve your business goals",
   icons: {
     icon: [
       { url: "/favicon/favicon-96x96.png", sizes: "96x96", type: "image/png" },
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   },
   manifest: "/favicon/site.webmanifest",
   appleWebApp: {
-    title: "YK Innovations",
+    title: "Acme Corporation",
   },
 };
 

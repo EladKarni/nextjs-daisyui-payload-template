@@ -22,7 +22,7 @@ export const CompanyInfo: GlobalConfig = {
       type: "text",
       label: "Company Name",
       required: true,
-      defaultValue: "YK Innovations",
+      defaultValue: "Acme Corporation",
       admin: {
         description: "Official company name",
       },
@@ -32,7 +32,7 @@ export const CompanyInfo: GlobalConfig = {
       type: "text",
       label: "Tagline",
       required: false,
-      defaultValue: "Expert mechanical engineering and rapid prototyping services. We transform product concepts into functional prototypes.",
+      defaultValue: "Your Trusted Business Partner",
       admin: {
         description: "Short company description/tagline",
       },
@@ -52,7 +52,7 @@ export const CompanyInfo: GlobalConfig = {
       type: "email",
       label: "Email Address",
       required: true,
-      defaultValue: "contact@ykinnovations.com",
+      defaultValue: "contact@acmecorp.com",
       admin: {
         description: "Primary contact email",
       },

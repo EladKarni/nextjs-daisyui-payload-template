@@ -25,7 +25,7 @@ const AboutSection: FC<AboutSectionProps> = ({ data }) => {
   // Use default alt text if imageAlt is empty or undefined
   const altText = imageAlt && imageAlt.trim() !== ""
     ? imageAlt
-    : "YK Innovations mechanical engineering and prototyping workspace";
+    : "Professional business workspace";
 
   return (
     <SectionContainer sectionName="about" background="alt">

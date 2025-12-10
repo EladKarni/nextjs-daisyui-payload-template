@@ -41,10 +41,10 @@ export const FooterSection: GlobalConfig = {
         },
       ],
       defaultValue: [
-        { label: "CAD Design & Engineering", href: "/#solutions" },
-        { label: "Rapid Prototyping", href: "/#solutions" },
-        { label: "Design for Manufacturing", href: "/#solutions" },
-        { label: "Testing & Validation", href: "/#solutions" },
+        { label: "Strategy Consulting", href: "/#solutions" },
+        { label: "Digital Development", href: "/#solutions" },
+        { label: "Business Analytics", href: "/#solutions" },
+        { label: "Creative Design", href: "/#solutions" },
       ],
       admin: {
         description: "List of services to display in the footer",
@@ -92,7 +92,7 @@ export const FooterSection: GlobalConfig = {
       type: "text",
       label: "Copyright Text",
       required: false,
-      defaultValue: "YK Innovations. All rights reserved.",
+      defaultValue: "Acme Corporation. All rights reserved.",
       admin: {
         description: "Copyright text (year will be automatically added)",
       },

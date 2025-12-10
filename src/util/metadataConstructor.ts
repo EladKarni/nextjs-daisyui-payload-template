@@ -1,8 +1,8 @@
 import { Metadata } from "next";
 
 export function metadataConstructor({
-  title = "YK Innovations",
-  description = "YK Innovations is here to help you bring your ideas to life",
+  title = "Acme Corporation",
+  description = "Acme Corporation is here to help you achieve your business goals",
   image = "url-preview-image.png",
   icons = "/favicon/favicon.ico",
   noIndex = false,

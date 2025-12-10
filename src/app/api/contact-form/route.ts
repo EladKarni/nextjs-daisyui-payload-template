@@ -50,32 +50,37 @@ export async function POST(request: Request) {
 
     // Send email to site owner
     const { error } = await resend.emails.send({
-      from: "YK Innovations <onboarding@resend.dev>",
-      to: "yalon.karni@gmail.com", // Must match your Resend signup email when using onboarding@resend.dev
+      from: "Acme Corporation <onboarding@resend.dev>",
+      to: "contact@example.com", // ⚠️ THIS IS A TEMPLATE - Update with your email address
       replyTo: body.email,
       subject: `New Contact Form Submission from ${body.name}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <div style="background-color: #fff3cd; border: 1px solid #ffc107; padding: 15px; margin-bottom: 20px; border-radius: 4px;">
+            <strong>⚠️ TEMPLATE NOTICE:</strong> This is a placeholder email configuration.
+            Update the recipient email in <code>src/app/api/contact-form/route.ts</code>
+          </div>
+
           <h2 style="color: #333; border-bottom: 2px solid #0066cc; padding-bottom: 10px;">
             New Contact Form Submission
           </h2>
-          
+
           <div style="background-color: #f9f9f9; padding: 20px; border-radius: 8px; margin: 20px 0;">
             <p style="margin: 10px 0;"><strong>Name:</strong> ${body.name}</p>
             <p style="margin: 10px 0;"><strong>Email:</strong> ${body.email}</p>
             ${body.phone ? `<p style="margin: 10px 0;"><strong>Phone:</strong> ${body.phone}</p>` : ""}
           </div>
-          
+
           <div style="margin-top: 20px;">
             <h3 style="color: #333;">Message:</h3>
             <p style="background-color: #fff; padding: 15px; border-left: 4px solid #0066cc; margin: 10px 0;">
               ${body.message.replace(/\n/g, "<br>")}
             </p>
           </div>
-          
+
           <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;">
           <p style="color: #666; font-size: 12px;">
-            This message was sent from the YK Innovations website contact form.
+            This message was sent from the Acme Corporation website contact form.
           </p>
         </div>
       `,

@@ -7,25 +7,25 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
-    default: "YK Innovations | Mechanical Engineering & Rapid Prototyping",
-    template: "%s | YK Innovations",
+    default: "Acme Corporation | Business Solutions & Services",
+    template: "%s | Acme Corporation",
   },
-  description: "Expert mechanical engineering and rapid prototyping services for businesses. We transform product concepts into functional prototypes with CAD design, 3D printing, CNC machining, and DFM analysis.",
-  keywords: ["mechanical engineering", "rapid prototyping", "CAD design", "3D printing", "CNC machining", "product development", "DFM analysis", "prototyping services"],
-  authors: [{ name: "YK Innovations" }],
-  creator: "YK Innovations",
+  description: "Leading provider of innovative business solutions. We help organizations achieve their goals through strategy, technology, and design excellence.",
+  keywords: ["business solutions", "consulting", "digital services", "strategy", "technology", "design", "project management", "analytics"],
+  authors: [{ name: "Acme Corporation" }],
+  creator: "Acme Corporation",
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://ykinnovations.com/",
-    title: "YK Innovations | Mechanical Engineering & Rapid Prototyping",
-    description: "Expert mechanical engineering and rapid prototyping services for businesses. We transform product concepts into functional prototypes.",
-    siteName: "YK Innovations",
+    url: "https://example.com/",
+    title: "Acme Corporation | Business Solutions & Services",
+    description: "Leading provider of innovative business solutions. We help organizations achieve their goals through strategy, technology, and design excellence.",
+    siteName: "Acme Corporation",
   },
   twitter: {
     card: "summary_large_image",
-    title: "YK Innovations | Mechanical Engineering & Rapid Prototyping",
-    description: "Expert mechanical engineering and rapid prototyping services for businesses. We transform product concepts into functional prototypes.",
+    title: "Acme Corporation | Business Solutions & Services",
+    description: "Leading provider of innovative business solutions. We help organizations achieve their goals through strategy, technology, and design excellence.",
   },
 };
 

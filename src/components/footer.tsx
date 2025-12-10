@@ -13,21 +13,21 @@ const Footer: FC<FooterProps> = ({ footerData, companyInfo }) => {
   }, []);
 
   // Extract data with fallbacks
-  const companyName = companyInfo?.companyName || "YK Innovations";
+  const companyName = companyInfo?.companyName || "Acme Corporation";
   const tagline =
     companyInfo?.tagline ||
-    "Expert mechanical engineering and rapid prototyping services. We transform product concepts into functional prototypes.";
-  const email = companyInfo?.email || "contact@ykinnovations.com";
-  const phone = companyInfo?.phone || "+1 (234) 567-890";
-  const phoneHref = companyInfo?.phoneHref || "tel:+1234567890";
+    "Your Trusted Business Partner. We deliver innovative solutions that drive growth and success.";
+  const email = companyInfo?.email || "contact@acmecorp.com";
+  const phone = companyInfo?.phone || "+1 (555) 123-4567";
+  const phoneHref = companyInfo?.phoneHref || "tel:+15551234567";
   const githubUrl = companyInfo?.socialMedia?.github;
   const linkedinUrl = companyInfo?.socialMedia?.linkedin;
   const twitterUrl = companyInfo?.socialMedia?.twitter;
   const services = footerData?.services || [
-    { label: "CAD Design & Engineering", href: "/#solutions" },
-    { label: "Rapid Prototyping", href: "/#solutions" },
-    { label: "Design for Manufacturing", href: "/#solutions" },
-    { label: "Testing & Validation", href: "/#solutions" },
+    { label: "Strategy Consulting", href: "/#solutions" },
+    { label: "Digital Development", href: "/#solutions" },
+    { label: "Business Analytics", href: "/#solutions" },
+    { label: "Creative Design", href: "/#solutions" },
   ];
   const showQuickLinks = footerData?.showQuickLinks !== false;
   const legalLinks = footerData?.legalLinks || [
@@ -35,7 +35,7 @@ const Footer: FC<FooterProps> = ({ footerData, companyInfo }) => {
     { label: "Terms of Service", href: "/terms" },
   ];
   const copyrightText =
-    footerData?.copyrightText || "YK Innovations. All rights reserved.";
+    footerData?.copyrightText || "Acme Corporation. All rights reserved.";
 
   return (
     <footer className="bg-base-200 border-t border-base-300">

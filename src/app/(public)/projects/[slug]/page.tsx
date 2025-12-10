@@ -341,12 +341,12 @@ export async function generateMetadata({ params }: ProjectPageProps) {
 
   if (!project) {
     return {
-      title: "Project Not Found | YK Innovations",
+      title: "Project Not Found | Acme Corporation",
     };
   }
 
   return {
-    title: `${project.title} | YK Innovations`,
+    title: `${project.title} | Acme Corporation`,
     description: project.description,
   };
 }

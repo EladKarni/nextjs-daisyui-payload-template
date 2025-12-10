@@ -131,7 +131,7 @@ export default async function ProjectsPage() {
 }
 
 export const metadata = {
-  title: "Our Projects | YK Innovations",
+  title: "Our Projects | Acme Corporation",
   description:
-    "Explore our portfolio of successful projects across web development, mobile apps, and enterprise solutions.",
+    "Explore our portfolio of successful projects across various industries and technologies.",
 };
