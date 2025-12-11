@@ -11,15 +11,18 @@ import type { NavBarProps } from "@/types";
 const NavBar: FC<NavBarProps> = ({ children }) => {
   const { y } = useWindowScroll();
   const isMounted = useMounted();
+  const hasScrolled = isMounted && y > 50;
 
   return (
     <header
       className={clsx(
-        "py-5 bg-base-200 h-[100px] sticky top-0 left-0 w-full z-50 duration-200 min-w-[290px]",
-        isMounted && y > 50 && "shadow-primary-900 shadow-md"
+        "py-5 h-[100px] fixed top-0 left-0 w-full z-50 duration-300 min-w-[290px]",
+        hasScrolled
+          ? "bg-base-200 shadow-primary-900 shadow-md"
+          : "bg-transparent"
       )}
     >
-      <div className="h-full flex flex-col justify-center max-w-[1024px] lg:mx-auto mx-4">
+      <div className="h-full flex flex-col justify-center max-w-7xl mx-auto px-4">
         <div className="flex justify-between items-center relative">
           <div className="max-w-[183px] lg:max-w-[163px]">
             <Link href="/">
