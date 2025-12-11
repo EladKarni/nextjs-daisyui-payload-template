@@ -1,6 +1,45 @@
-// Fallback data for when CMS is unavailable (e.g., during build without database)
+/**
+ * Static Demo Data
+ *
+ * This file contains all the static content for the website.
+ * Edit this file to update the content displayed on the site.
+ */
 
-export const fallbackHeroData = {
+import type {
+  AboutSectionData,
+  ProcessSectionData,
+  Service,
+  Project,
+  Testimonial,
+  ContactData,
+  CompanyInfo,
+  FooterData,
+  ProjectsSectionData,
+} from "@/types";
+
+// =============================================================================
+// HERO SECTION
+// =============================================================================
+
+export interface HeroData {
+  title: string;
+  subtitle?: string;
+  description?: string;
+  primaryCTA?: {
+    text: string;
+    href: string;
+  };
+  secondaryCTA?: {
+    text: string;
+    href: string;
+  };
+  backgroundImage?: string;
+  backgroundVideo?: string;
+  overlay?: boolean;
+  overlayOpacity?: number;
+}
+
+export const heroData: HeroData = {
   title: "Building Tomorrow's Solutions Today",
   subtitle: "Welcome to Excellence",
   description:
@@ -19,7 +58,11 @@ export const fallbackHeroData = {
   overlayOpacity: 0.5,
 };
 
-export const fallbackAboutData = {
+// =============================================================================
+// ABOUT SECTION
+// =============================================================================
+
+export const aboutData: AboutSectionData = {
   title: "Your Trusted Business Partner",
   subtitle: "About Us",
   description:
@@ -29,10 +72,14 @@ export const fallbackAboutData = {
     { value: "50+", label: "Happy Clients" },
     { value: "10+", label: "Years of Experience" },
   ],
-  imagePosition: "right" as const,
+  imagePosition: "right",
 };
 
-export const fallbackProjectsPageData = {
+// =============================================================================
+// PROJECTS SECTION (Page Header)
+// =============================================================================
+
+export const projectsSectionData: ProjectsSectionData = {
   title: "Featured Work",
   pageHeader: {
     label: "Our Portfolio",
@@ -42,7 +89,11 @@ export const fallbackProjectsPageData = {
   },
 };
 
-export const fallbackProcessData = {
+// =============================================================================
+// PROCESS SECTION
+// =============================================================================
+
+export const processData: ProcessSectionData = {
   title: "How We Work",
   subtitle: "Our Process",
   steps: [
@@ -77,7 +128,11 @@ export const fallbackProcessData = {
   ],
 };
 
-export const fallbackServices = [
+// =============================================================================
+// SERVICES
+// =============================================================================
+
+export const services: Service[] = [
   {
     title: "Strategy Consulting",
     description:
@@ -116,40 +171,11 @@ export const fallbackServices = [
   },
 ];
 
-export const fallbackProjects = [
-  {
-    title: "Enterprise Dashboard",
-    description:
-      "A comprehensive analytics platform for large organizations to track performance and make data-driven decisions.",
-    slug: "enterprise-dashboard",
-    image: "https://picsum.photos/id/0/1200/800",
-    category: "Digital Solutions",
-    technologies: ["React", "TypeScript", "Node.js"],
-    featured: true,
-  },
-  {
-    title: "Mobile Commerce App",
-    description:
-      "A seamless shopping experience for modern consumers with intuitive design and powerful features.",
-    slug: "mobile-commerce-app",
-    image: "https://picsum.photos/id/1/1200/800",
-    category: "Mobile Development",
-    technologies: ["React Native", "API Integration", "Payment Systems"],
-    featured: true,
-  },
-  {
-    title: "Brand Identity System",
-    description:
-      "A complete visual identity for a growing startup, including logo design, style guides, and brand assets.",
-    slug: "brand-identity-system",
-    image: "https://picsum.photos/id/180/1200/800",
-    category: "Design",
-    technologies: ["Design Systems", "Branding", "UI/UX"],
-    featured: true,
-  },
-];
+// =============================================================================
+// TESTIMONIALS
+// =============================================================================
 
-export const fallbackTestimonials = [
+export const testimonials: Testimonial[] = [
   {
     quote:
       "Working with Acme Corporation transformed our business. Their expertise and dedication exceeded our expectations at every turn.",
@@ -173,7 +199,11 @@ export const fallbackTestimonials = [
   },
 ];
 
-export const fallbackContactSection = {
+// =============================================================================
+// CONTACT SECTION
+// =============================================================================
+
+export const contactData: ContactData = {
   title: "Get In Touch",
   nameLabel: "Name",
   namePlaceholder: "Your name",
@@ -184,9 +214,14 @@ export const fallbackContactSection = {
   submitButtonText: "Send Message",
 };
 
-export const fallbackCompanyInfo = {
+// =============================================================================
+// COMPANY INFO
+// =============================================================================
+
+export const companyInfo: CompanyInfo = {
   companyName: "Acme Corporation",
-  tagline: "Your Trusted Business Partner. We deliver innovative solutions that drive growth and success.",
+  tagline:
+    "Your Trusted Business Partner. We deliver innovative solutions that drive growth and success.",
   email: "contact@acmecorp.com",
   phone: "+1 (555) 123-4567",
   phoneHref: "tel:+15551234567",
@@ -195,19 +230,20 @@ export const fallbackCompanyInfo = {
     city: "San Francisco",
     state: "CA",
     zip: "94102",
-    country: "United States",
   },
   socialMedia: {
     github: "https://github.com",
     linkedin: "https://linkedin.com",
     twitter: "https://twitter.com",
     instagram: "https://instagram.com",
-    facebook: "https://facebook.com",
   },
-  businessHours: "Monday - Friday: 9:00 AM - 6:00 PM PST\nSaturday - Sunday: Closed",
 };
 
-export const fallbackFooterSection = {
+// =============================================================================
+// FOOTER SECTION
+// =============================================================================
+
+export const footerData: FooterData = {
   services: [
     { label: "Strategy Consulting", href: "/#solutions" },
     { label: "Digital Development", href: "/#solutions" },
@@ -222,8 +258,94 @@ export const fallbackFooterSection = {
   copyrightText: "Acme Corporation. All rights reserved.",
 };
 
-// Enhanced fallback projects with full detail data for individual project pages
-export const fallbackProjectDetails: Record<string, any> = {
+// =============================================================================
+// PROJECTS (List View)
+// =============================================================================
+
+export interface ProjectListItem extends Project {
+  image: string;
+}
+
+export const projects: ProjectListItem[] = [
+  {
+    id: "1",
+    title: "Enterprise Dashboard",
+    description:
+      "A comprehensive analytics platform for large organizations to track performance and make data-driven decisions.",
+    slug: "enterprise-dashboard",
+    image: "https://picsum.photos/id/0/1200/800",
+    category: "Digital Solutions",
+    technologies: [
+      { technology: "React", id: "1" },
+      { technology: "TypeScript", id: "2" },
+      { technology: "Node.js", id: "3" },
+    ],
+    featured: true,
+  },
+  {
+    id: "2",
+    title: "Mobile Commerce App",
+    description:
+      "A seamless shopping experience for modern consumers with intuitive design and powerful features.",
+    slug: "mobile-commerce-app",
+    image: "https://picsum.photos/id/1/1200/800",
+    category: "Mobile Development",
+    technologies: [
+      { technology: "React Native", id: "1" },
+      { technology: "API Integration", id: "2" },
+      { technology: "Payment Systems", id: "3" },
+    ],
+    featured: true,
+  },
+  {
+    id: "3",
+    title: "Brand Identity System",
+    description:
+      "A complete visual identity for a growing startup, including logo design, style guides, and brand assets.",
+    slug: "brand-identity-system",
+    image: "https://picsum.photos/id/180/1200/800",
+    category: "Design",
+    technologies: [
+      { technology: "Design Systems", id: "1" },
+      { technology: "Branding", id: "2" },
+      { technology: "UI/UX", id: "3" },
+    ],
+    featured: true,
+  },
+];
+
+// =============================================================================
+// PROJECT DETAILS (Individual Project Pages)
+// =============================================================================
+
+export interface ProjectDetail extends Project {
+  heroImage: string;
+  image: string;
+  client?: string;
+  duration?: string;
+  year?: string;
+  fullDescription?: {
+    root: {
+      children: Array<{
+        type: string;
+        children?: Array<{
+          type: string;
+          text?: string;
+          format?: number;
+        }>;
+        listType?: string;
+        tag?: string;
+      }>;
+    };
+  };
+  features?: Array<{ feature: string; id: string }>;
+  challenge?: string;
+  solution?: string;
+  results?: Array<{ value: string; metric: string; id: string }>;
+  gallery?: Array<{ image: string; caption?: string; id: string }>;
+}
+
+export const projectDetails: Record<string, ProjectDetail> = {
   "enterprise-dashboard": {
     id: "1",
     title: "Enterprise Dashboard",
@@ -468,3 +590,35 @@ export const fallbackProjectDetails: Record<string, any> = {
     updatedAt: "2024-03-10T00:00:00.000Z",
   },
 };
+
+// =============================================================================
+// HELPER FUNCTIONS
+// =============================================================================
+
+/**
+ * Get featured projects for homepage display
+ */
+export function getFeaturedProjects(): ProjectListItem[] {
+  return projects.filter((p) => p.featured);
+}
+
+/**
+ * Get all projects
+ */
+export function getAllProjects(): ProjectListItem[] {
+  return projects;
+}
+
+/**
+ * Get project by slug
+ */
+export function getProjectBySlug(slug: string): ProjectDetail | undefined {
+  return projectDetails[slug];
+}
+
+/**
+ * Get all project slugs (for static generation)
+ */
+export function getAllProjectSlugs(): string[] {
+  return Object.keys(projectDetails);
+}

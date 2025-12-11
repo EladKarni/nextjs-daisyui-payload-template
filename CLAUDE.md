@@ -16,21 +16,14 @@ npm start
 
 # Lint code
 npm run lint
-
-# Database (PostgreSQL via Docker - note: docker-compose.yml not yet created)
-npm run db:start  # Start PostgreSQL container
-npm run db:stop   # Stop PostgreSQL container
 ```
 
 ## Tech Stack
 
-- **Framework**: Next.js 15.3.4 (App Router)
+- **Framework**: Next.js 15.3.6 (App Router)
 - **React**: 19.1.0
-- **CMS**: Payload CMS 3.63.0 with PostgreSQL adapter
 - **Styling**: Tailwind CSS 3.4+ with DaisyUI 4.11+
-- **Rich Text**: Lexical Editor
-- **Storage**: Vercel Blob Storage (optional)
-- **Database**: PostgreSQL
+- **Email**: Resend (for contact form)
 - **Package Manager**: Yarn 1.22.22
 
 ## Architecture Overview
@@ -40,19 +33,40 @@ npm run db:stop   # Stop PostgreSQL container
 ```
 src/
 ├── app/                    # Next.js App Router pages
-│   ├── (payload)/         # Payload CMS admin routes
-│   ├── api/               # API routes
-│   └── projects/          # Project detail pages
+│   ├── (public)/          # Public-facing routes
+│   │   ├── projects/      # Projects listing and detail pages
+│   │   └── success/       # Success page
+│   └── api/               # API routes (contact-form)
 ├── views/                 # Page section components (AboutSection, HeroSection, etc.)
 ├── components/            # Reusable UI components (navbar, footer, cards)
 ├── ui/                    # Core UI primitives (CTAButton, SectionContainer)
-├── collections/           # Payload CMS collections (Users, Media, Projects, Services, Testimonials)
-├── globals/               # Payload CMS global configs (HeroSection, ProjectsSection, ContactSection)
-├── constants/             # Static data (navLinks, faq)
+├── consts/                # Static demo data (demoData.ts) and other constants
+├── constants/             # Static data (navLinks, faq, metadata)
 ├── hooks/                 # React hooks
 ├── types/                 # TypeScript type definitions
 └── util/                  # Utility functions
 ```
+
+### Static Data Architecture
+
+All content is stored in `/src/consts/demoData.ts`. This file contains:
+- **heroData**: Hero section content (title, subtitle, CTAs, background)
+- **aboutData**: About section content (title, description, stats)
+- **processData**: Process steps with icons
+- **services**: Array of service offerings
+- **testimonials**: Array of client testimonials
+- **contactData**: Contact form labels and placeholders
+- **companyInfo**: Company name, email, phone, social media links
+- **footerData**: Footer links and copyright
+- **projects**: Array of project list items
+- **projectDetails**: Detailed project data keyed by slug
+- **projectsSectionData**: Projects page header content
+
+Helper functions:
+- `getFeaturedProjects()` - Get projects marked as featured
+- `getAllProjects()` - Get all projects
+- `getProjectBySlug(slug)` - Get project details by slug
+- `getAllProjectSlugs()` - Get all project slugs for static generation
 
 ### Component Organization
 
@@ -97,21 +111,6 @@ All view components should use `SectionContainer` for consistency:
 - Responsive padding: `py-16 md:py-24 lg:py-32` (unless `noPadding={true}`)
 - Max-width constraint (`max-w-7xl`) unless `isFullWidth={true}`
 
-### Payload CMS Integration
-
-**Collections** (`/src/collections/`): Define content types with fields, validation, and access control
-- `Users.ts` - Admin users
-- `Media.ts` - File uploads
-- `Projects.ts` - Portfolio projects
-- `Services.ts` - Service offerings
-- `Testimonials.ts` - Client testimonials
-
-**Globals** (`/src/globals/`): Singleton configurations for page sections
-- `HeroSection.ts`, `ProjectsSection.ts`, `ContactSection.ts` - Content schemas
-- Note: Some referenced globals (TeamSection, NeighborhoodSection, TeamPage, NeighborhoodPage) may be missing
-
-**Admin Panel**: Accessible at `/admin` when server is running
-
 ### Styling System
 
 **Tailwind + DaisyUI**: Component classes use both:
@@ -125,16 +124,13 @@ All view components should use `SectionContainer` for consistency:
 
 **Path Aliases** (`tsconfig.json`):
 - `@/*` → `./src/*`
-- `@payload-config` → `./src/payload.config.ts`
 
 ### Environment Variables
 
-Required variables (see `.env.example`):
+Optional variables (see `.env.example`):
 ```bash
-PAYLOAD_SECRET=              # Strong random string for CMS security
-DATABASE_URL=                # PostgreSQL connection string
+RESEND_API_KEY=              # For contact form email functionality
 NEXT_PUBLIC_SERVER_URL=      # Server URL (http://localhost:3000 for dev)
-BLOB_READ_WRITE_TOKEN=       # Optional: Vercel Blob Storage token
 ```
 
 ## Development Workflows
@@ -143,31 +139,18 @@ BLOB_READ_WRITE_TOKEN=       # Optional: Vercel Blob Storage token
 
 1. Create component in `/src/views/NewSection.tsx`
 2. Use `SectionContainer` wrapper with appropriate props
-3. Define TypeScript interface for props
-4. Import and use in `/src/app/page.tsx`
-5. Optionally create corresponding Payload global in `/src/globals/`
+3. Define TypeScript interface for props in `/src/types/sections.ts`
+4. Import and use in `/src/app/(public)/page.tsx`
 
-### Working with Payload CMS
+### Modifying Content
 
-- Collections define repeatable content types (many items)
-- Globals define singleton content (one configuration)
-- Both export default with `buildConfig` structure
-- Access control, fields, hooks all configured in collection/global files
-- TypeScript types auto-generated to `payload-types.ts`
+1. Edit `/src/consts/demoData.ts` to update any content
+2. Follow existing type structures for consistency
+3. Add new projects to both `projects` array and `projectDetails` object
 
-### Database Setup
+### Adding New Projects
 
-The project uses PostgreSQL. Docker scripts exist (`npm run db:start/stop`) but `docker-compose.yml` file is not yet present. You'll need to:
-1. Create a PostgreSQL database
-2. Set `DATABASE_URL` in `.env.local`
-3. Payload migrations run automatically on startup
-
-## Known Issues
-
-- Missing Payload global files referenced in `payload.config.ts`:
-  - `./globals/TeamSection`
-  - `./globals/NeighborhoodSection`
-  - `./globals/TeamPage`
-  - `./globals/NeighborhoodPage`
-- Missing type definition: `@/types/faqType` referenced in `accordion.tsx`
-- `docker-compose.yml` file not present despite db scripts in package.json
+1. Add project to `projects` array in `demoData.ts`
+2. Add detailed project data to `projectDetails` object with matching slug
+3. Project will automatically appear on `/projects` page
+4. Individual page will be available at `/projects/[slug]`

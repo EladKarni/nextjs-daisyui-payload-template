@@ -2,12 +2,13 @@ import Image from "next/image";
 import CTAButton from "@/ui/CTAButton";
 import SectionContainer from "@/ui/SectionContainer";
 import { notFound } from "next/navigation";
-import { getPayload } from "payload";
-import config from "@/payload.config";
-import { draftMode } from "next/headers";
 import { ReactElement } from "react";
 import ProjectGallery from "@/components/ProjectGallery";
-import { fallbackProjects, fallbackProjectDetails } from "@/lib/fallbackData";
+import {
+  getProjectBySlug,
+  getAllProjectSlugs,
+  type ProjectDetail,
+} from "@/consts/demoData";
 
 // Helper to render Lexical rich text to React elements
 function renderRichText(richText: any): ReactElement {
@@ -74,41 +75,13 @@ function renderRichText(richText: any): ReactElement {
 }
 
 // Enable ISR with on-demand revalidation for performance
-export const revalidate = 3600; // Cache for 1 hour, revalidate on-demand via webhook
+export const revalidate = 3600; // Cache for 1 hour
 
 // Pre-generate static pages for all projects at build time
-export async function generateStaticParams() {
-  // Check if we're in demo mode or if database is unavailable (e.g., during build)
-  const isDemoMode = process.env.DEMO_MODE === 'true';
-  const isDatabaseAvailable = process.env.DATABASE_URL && process.env.DATABASE_URL.includes('localhost');
-
-  if (isDemoMode || !isDatabaseAvailable) {
-    // Demo mode or no database: Generate params for fallback projects only
-    console.log("Generating static params for fallback projects (demo mode or no DB)");
-    return fallbackProjects.map((project) => ({
-      slug: project.slug,
-    }));
-  }
-
-  // Non-demo mode with database: Generate from CMS
-  try {
-    const payload = await getPayload({ config });
-    const projects = await payload.find({
-      collection: "projects",
-      limit: 100,
-      draft: false,
-    });
-
-    return projects.docs.map((project: any) => ({
-      slug: project.slug,
-    }));
-  } catch (error) {
-    console.warn("Failed to generate static params from CMS:", error);
-    // Fallback to demo projects if CMS is unavailable during build
-    return fallbackProjects.map((project) => ({
-      slug: project.slug,
-    }));
-  }
+export function generateStaticParams() {
+  return getAllProjectSlugs().map((slug) => ({
+    slug,
+  }));
 }
 
 interface ProjectPageProps {
@@ -120,74 +93,23 @@ interface ProjectPageProps {
 export default async function ProjectPage({ params }: ProjectPageProps) {
   const { slug } = await params;
 
-  // Check if we're in demo mode
-  const isDemoMode = process.env.DEMO_MODE === 'true';
+  const project = getProjectBySlug(slug);
 
-  let project: any = null;
-
-  if (isDemoMode) {
-    // Demo mode: Use fallback project data
-    console.log(`DEMO_MODE enabled: Loading fallback project for slug: ${slug}`);
-    project = fallbackProjectDetails[slug];
-
-    if (!project) {
-      console.warn(`Project with slug "${slug}" not found in fallback data`);
-      notFound();
-    }
-  } else {
-    // Non-demo mode: Fetch from CMS
-    const { isEnabled: isDraftMode } = await draftMode();
-
-    try {
-      const payload = await getPayload({ config });
-      const result = await payload.find({
-        collection: "projects",
-        where: {
-          slug: {
-            equals: slug,
-          },
-        },
-        draft: isDraftMode,
-        limit: 1,
-      });
-
-      if (result.docs.length > 0) {
-        project = result.docs[0];
-      }
-    } catch (error) {
-      console.warn("Failed to fetch project from CMS:", error);
-      // Try fallback data as last resort
-      project = fallbackProjectDetails[slug];
-    }
-
-    if (!project) {
-      notFound();
-    }
+  if (!project) {
+    notFound();
   }
 
-  // Extract hero image URL from Media object
-  const heroImageUrl =
-    typeof project.heroImage === "object" && project.heroImage !== null
-      ? (project.heroImage as any).url || "https://picsum.photos/1200/800?random=1"
-      : project.heroImage || "https://picsum.photos/1200/800?random=1";
+  // Extract hero image URL
+  const heroImageUrl = project.heroImage || "https://picsum.photos/1200/800?random=1";
 
-  // Extract gallery image URLs from Media objects
-  const galleryUrls = project.gallery?.map((item: any) => {
-    if (typeof item.image === "object" && item.image !== null) {
-      return (item.image as any).url || "";
-    }
-    return item.image || "";
-  }).filter(Boolean) || [];
+  // Extract gallery image URLs
+  const galleryUrls = project.gallery?.map((item) => item.image).filter(Boolean) || [];
 
-  // Extract feature strings from objects
-  const featuresList = project.features?.map((item: any) =>
-    typeof item === "object" ? item.feature : item
-  ).filter(Boolean) || [];
+  // Extract feature strings
+  const featuresList = project.features?.map((item) => item.feature).filter(Boolean) || [];
 
-  // Extract technology strings from objects
-  const techList = project.technologies?.map((item: any) =>
-    typeof item === "object" ? item.technology : item
-  ).filter(Boolean) || [];
+  // Extract technology strings
+  const techList = project.technologies?.map((item) => item.technology).filter(Boolean) || [];
 
   return (
     <main className="min-h-screen">
@@ -255,11 +177,11 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             </div>
 
             {/* Results */}
-            {project.results?.length > 0 && (
+            {project.results && project.results.length > 0 && (
               <div>
                 <h2 className="text-3xl font-bold text-base-content mb-6">Results</h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  {project.results.map((result: any, index: number) => (
+                  {project.results.map((result, index) => (
                     <div key={index} className="bg-primary/10 rounded-lg p-4 text-center flex flex-col justify-between min-h-[80px]">
                       <div className="text-xl font-bold text-primary mb-1">{result.value}</div>
                       <div className="text-xs text-base-content/70 mt-auto">{result.metric}</div>
@@ -349,39 +271,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 export async function generateMetadata({ params }: ProjectPageProps) {
   const { slug } = await params;
 
-  // Check if we're in demo mode
-  const isDemoMode = process.env.DEMO_MODE === 'true';
-
-  let project: any = null;
-
-  if (isDemoMode) {
-    // Demo mode: Use fallback project data
-    project = fallbackProjectDetails[slug];
-  } else {
-    // Non-demo mode: Fetch from CMS
-    const { isEnabled: isDraftMode } = await draftMode();
-
-    try {
-      const payload = await getPayload({ config });
-      const result = await payload.find({
-        collection: "projects",
-        where: {
-          slug: {
-            equals: slug,
-          },
-        },
-        draft: isDraftMode,
-        limit: 1,
-      });
-
-      if (result.docs.length > 0) {
-        project = result.docs[0];
-      }
-    } catch (error) {
-      console.warn("Failed to fetch project metadata from CMS:", error);
-      project = fallbackProjectDetails[slug];
-    }
-  }
+  const project = getProjectBySlug(slug);
 
   if (!project) {
     return {

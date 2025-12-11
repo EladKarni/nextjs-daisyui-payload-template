@@ -1,60 +1,13 @@
 import ProjectCard from "@/components/ProjectCard";
 import SectionContainer from "@/ui/SectionContainer";
-import { getPayload } from "payload";
-import config from "@/payload.config";
-import { draftMode } from "next/headers";
-import { fallbackProjectsPageData, fallbackProjects } from "@/lib/fallbackData";
-import type { Project, ProjectsSectionData } from "@/types";
+import {
+  getAllProjects,
+  projectsSectionData,
+} from "@/consts/demoData";
 
-// Enable ISR with on-demand revalidation for performance
-export const revalidate = 3600; // Cache for 1 hour, revalidate on-demand via webhook
-
-export default async function ProjectsPage() {
-  // Fetch projects from CMS
-  let projects: Project[] = [];
-  let sectionData: ProjectsSectionData = fallbackProjectsPageData;
-
-  // Check if we're in demo mode
-  const isDemoMode = process.env.DEMO_MODE === 'true';
-
-  if (isDemoMode) {
-    // Demo mode: Use fallback data only
-    console.log("DEMO_MODE enabled: Using fallback projects");
-    projects = fallbackProjects as unknown as Project[];
-    sectionData = fallbackProjectsPageData;
-  } else {
-    // Non-demo mode: Fetch from CMS with draft support
-    const { isEnabled: isDraftMode } = await draftMode();
-
-    try {
-      const payload = await getPayload({ config });
-
-      // Fetch projects and section data in parallel
-      const [projectsResult, projectsSectionData] = await Promise.all([
-        payload.find({
-          collection: "projects",
-          draft: isDraftMode,
-          limit: 100, // Get all projects
-          sort: "createdAt", // Oldest first (ascending)
-        }),
-        payload.findGlobal({
-          slug: "projects-section",
-          draft: isDraftMode,
-        }),
-      ]);
-
-      projects = projectsResult.docs as unknown as Project[];
-      sectionData = projectsSectionData as unknown as ProjectsSectionData;
-    } catch (error) {
-      console.warn("Failed to fetch data from CMS:", error);
-      projects = fallbackProjects as unknown as Project[];
-      sectionData = fallbackProjectsPageData;
-    }
-  }
-
-  // Extract page header data with fallbacks
-  const pageHeader =
-    sectionData?.pageHeader || fallbackProjectsPageData.pageHeader;
+export default function ProjectsPage() {
+  const projects = getAllProjects();
+  const pageHeader = projectsSectionData.pageHeader!;
 
   // Extract unique categories from projects
   const categories = [
@@ -87,11 +40,10 @@ export default async function ProjectsPage() {
             {categories.map((category) => (
               <div
                 key={category}
-                className={`px-6 py-2 rounded-full font-medium ${
-                  category === "All"
-                    ? "bg-primary text-primary-content"
-                    : "bg-base-200 text-base-content"
-                }`}
+                className={`px-6 py-2 rounded-full font-medium ${category === "All"
+                  ? "bg-primary text-primary-content"
+                  : "bg-base-200 text-base-content"
+                  }`}
               >
                 {category}
               </div>
@@ -103,15 +55,6 @@ export default async function ProjectsPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.length > 0 ? (
             projects.map((project, index) => {
-              // Extract image URL if it's a Media object
-              const imageUrl =
-                typeof project.heroImage === "object" &&
-                project.heroImage !== null
-                  ? (project.heroImage as any).url ||
-                    "https://picsum.photos/1200/800?random=" + index
-                  : project.heroImage ||
-                    "https://picsum.photos/1200/800?random=" + index;
-
               // Extract technology strings from array of objects
               const techList =
                 project.technologies?.map((t) => t.technology) || [];
@@ -121,7 +64,7 @@ export default async function ProjectsPage() {
                   key={project.slug || index}
                   title={project.title}
                   description={project.description}
-                  image={imageUrl}
+                  image={project.image}
                   slug={project.slug}
                   technologies={techList}
                   category={project.category}
@@ -133,7 +76,7 @@ export default async function ProjectsPage() {
           ) : (
             <div className="col-span-full text-center py-12 text-base-content/70">
               <p className="text-xl">
-                No projects found. Add projects in the CMS to display them here.
+                No projects found. Add projects to the demo data to display them here.
               </p>
             </div>
           )}
