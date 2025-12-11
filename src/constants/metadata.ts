@@ -2,43 +2,44 @@
 // SEO and metadata defaults
 
 export const siteMetadata = {
-  title: "Acme Corporation",
-  description: "Acme Corporation is here to help you achieve your business goals",
+  title: "Elad Karni | Software Developer & IT Specialist",
+  description: "Portfolio of Elad Karni - Software Developer, Game Designer, and IT Specialist with expertise in React, C#, Xamarin, and full-stack development.",
   keywords: [
-    "business solutions",
-    "consulting",
-    "digital development",
-    "analytics",
-    "design",
-    "project management",
+    "Elad Karni",
+    "Software Developer",
+    "React Developer",
+    "Full Stack Developer",
+    "IT Specialist",
+    "Game Designer",
+    "Photographer",
+    "Pittsburgh PA",
+    "Web Development",
+    "Mobile Development",
+    "React.js",
+    "TypeScript",
+    "Next.js",
   ] as string[],
   author: {
-    name: "Acme Corporation",
-    url: "https://acmecorp.com",
+    name: "Elad Karni",
+    url: "https://eladkarni.com",
   },
-  url: process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000",
-  ogImage: "/og-image.png",
+  url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
+  ogImage: "/images/og-image.jpg",
 };
 
 export const faviconConfig = {
   icons: {
     icon: [
-      { url: "/favicon/favicon-96x96.png", sizes: "96x96", type: "image/png" },
-      { url: "/favicon/favicon.svg", type: "image/svg+xml" },
-      { url: "/favicon/favicon.ico", sizes: "32x32", type: "image/x-icon" },
+      { url: "/favicon.png", type: "image/png" },
     ],
     apple: [
-      { url: "/favicon/apple-touch-icon.png", sizes: "180x180" },
+      { url: "/favicon.png" },
     ],
-  },
-  manifest: "/favicon/site.webmanifest",
-  appleWebApp: {
-    title: "Acme Corporation",
   },
 };
 
 export const openGraphDefaults = {
   type: "website" as const,
   locale: "en_US",
-  siteName: "Acme Corporation",
+  siteName: "Elad Karni Portfolio",
 };

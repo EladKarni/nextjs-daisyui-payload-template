@@ -1,16 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'picsum.photos',
-      },
-      {
-        protocol: 'http',
-        hostname: 'localhost',
-      },
-    ],
+    remotePatterns: [],
+    formats: ['image/avif', 'image/webp'],
     dangerouslyAllowSVG: true,
   },
   compress: true,

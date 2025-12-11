@@ -1,60 +1,36 @@
-import Hero from "@/components/Hero";
-import AboutSection from "@/views/AboutSection";
-import ServicesSection from "@/views/ServicesSection";
-import ProcessSection from "@/views/ProcessSection";
-import FeaturedProjectsSection from "@/views/FeaturedProjectsSection";
-import TestimonialsSection from "@/views/TestimonialsSection";
-import ContactSection from "@/views/ContactSection";
-import {
-  heroData,
-  aboutData,
-  processData,
-  services,
-  testimonials,
-  contactData,
-  companyInfo,
-  projectsSectionData,
-  getFeaturedProjects,
-} from "@/consts/demoData";
+import Hero from '@/views/hero';
+import About from '@/views/about';
+import WorkExperience from '@/views/work-experience';
+import Skills from '@/views/skills';
+import Portfolio from '@/views/portfolio';
+import Contact from '@/views/contact';
 
 export default function Home() {
-  const featuredProjects = getFeaturedProjects();
-
   return (
     <main className="min-h-screen">
-      {/* Hero Section */}
-      <Hero
-        title={heroData.title}
-        subtitle={heroData.subtitle}
-        description={heroData.description}
-        primaryCTA={heroData.primaryCTA}
-        secondaryCTA={heroData.secondaryCTA}
-        backgroundImage={heroData.backgroundImage}
-        backgroundVideo={heroData.backgroundVideo}
-        overlay={heroData.overlay}
-        overlayOpacity={heroData.overlayOpacity}
-      />
+      <section id="home">
+        <Hero />
+      </section>
 
-      {/* About Section */}
-      <AboutSection data={aboutData} />
+      <section id="about">
+        <About />
+      </section>
 
-      {/* Featured Projects Section */}
-      <FeaturedProjectsSection
-        data={featuredProjects}
-        title={projectsSectionData.title}
-      />
+      <section id="resume">
+        <WorkExperience />
+      </section>
 
-      {/* Services Section */}
-      <ServicesSection data={services} />
+      <section id="skills">
+        <Skills />
+      </section>
 
-      {/* Process Section */}
-      <ProcessSection data={processData} />
+      <section id="portfolio">
+        <Portfolio />
+      </section>
 
-      {/* Testimonials Section */}
-      <TestimonialsSection data={testimonials} />
-
-      {/* Contact Section */}
-      <ContactSection contactData={contactData} companyInfo={companyInfo} />
+      <section id="contact">
+        <Contact />
+      </section>
     </main>
   );
 }

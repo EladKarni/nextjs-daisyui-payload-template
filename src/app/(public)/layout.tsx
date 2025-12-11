@@ -5,6 +5,8 @@ import NavBar from "@/components/navbar";
 import NavLinks from "@/components/NavLinks";
 import Footer from "@/components/footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import Analytics from "@/components/analytics";
+import StructuredData from "@/components/structured-data";
 
 import "./globals.css";
 
@@ -43,6 +45,7 @@ export default function RootLayout({
   return (
     <html lang="en" data-theme="light" className="scroll-smooth" suppressHydrationWarning>
       <head>
+        <StructuredData />
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -63,6 +66,7 @@ export default function RootLayout({
           </NavBar>
           {children}
           <Footer />
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>

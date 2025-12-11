@@ -141,3 +141,8 @@
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   transition: box-shadow calc(var(--transitionLength) / 4) var(--transitionTiming);
 }
+
+/* Account for fixed navbar when scrolling to anchors */
+section[id] {
+  scroll-margin-top: 80px;
+}
