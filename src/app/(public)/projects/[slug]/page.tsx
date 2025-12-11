@@ -78,18 +78,19 @@ export const revalidate = 3600; // Cache for 1 hour, revalidate on-demand via we
 
 // Pre-generate static pages for all projects at build time
 export async function generateStaticParams() {
-  // Check if we're in demo mode
+  // Check if we're in demo mode or if database is unavailable (e.g., during build)
   const isDemoMode = process.env.DEMO_MODE === 'true';
+  const isDatabaseAvailable = process.env.DATABASE_URL && process.env.DATABASE_URL.includes('localhost');
 
-  if (isDemoMode) {
-    // Demo mode: Generate params for fallback projects only
-    console.log("DEMO_MODE enabled: Generating static params for fallback projects");
+  if (isDemoMode || !isDatabaseAvailable) {
+    // Demo mode or no database: Generate params for fallback projects only
+    console.log("Generating static params for fallback projects (demo mode or no DB)");
     return fallbackProjects.map((project) => ({
       slug: project.slug,
     }));
   }
 
-  // Non-demo mode: Generate from CMS
+  // Non-demo mode with database: Generate from CMS
   try {
     const payload = await getPayload({ config });
     const projects = await payload.find({
@@ -102,7 +103,7 @@ export async function generateStaticParams() {
       slug: project.slug,
     }));
   } catch (error) {
-    console.warn("Failed to generate static params:", error);
+    console.warn("Failed to generate static params from CMS:", error);
     // Fallback to demo projects if CMS is unavailable during build
     return fallbackProjects.map((project) => ({
       slug: project.slug,

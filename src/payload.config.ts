@@ -1,5 +1,5 @@
 import { buildConfig } from "payload";
-import { postgresAdapter } from "@payloadcms/db-postgres";
+import { mongooseAdapter } from "@payloadcms/db-mongodb";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { vercelBlobStorage } from "@payloadcms/storage-vercel-blob";
 import path from "path";
@@ -31,7 +31,9 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
-    disable: false,
+    // Disable admin panel in DEMO_MODE or when DATABASE_URL is not set
+    // This prevents crashes when MongoDB is not running
+    disable: process.env.DEMO_MODE === 'true' || !process.env.DATABASE_URL,
   },
   // CORS configuration - allows cookies from the correct domain
   cors: [
@@ -42,7 +44,10 @@ export default buildConfig({
   // Note: Wildcards don't work in CSRF validation (requires exact domain match)
   // Remove trailing slash to match browser Origin header format
   csrf: [
-    (process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000").replace(/\/$/, ""),
+    (process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000").replace(
+      /\/$/,
+      ""
+    ),
   ],
   collections: [Users, Media, Projects, Services, Testimonials],
   globals: [
@@ -59,14 +64,10 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, "../payload-types.ts"),
   },
-  db: postgresAdapter({
-    pool: {
-      connectionString:
-        process.env.NETLIFY_DATABASE_URL ||
-        "postgresql://payload:payload@localhost:5432/nextjs_tailwind_daisyui",
-    },
-    push: false, // Disable automatic schema sync - use migrations instead
-    migrationDir: path.resolve(dirname, './migrations'),
+  db: mongooseAdapter({
+    url:
+      process.env.DATABASE_URL ||
+      "mongodb://payload:payload@localhost:27017/nextjs_tailwind_daisyui",
   }),
   serverURL: process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000",
   sharp,

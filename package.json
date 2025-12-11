@@ -9,12 +9,21 @@
     "lint": "next lint",
     "db:start": "docker-compose up -d",
     "db:stop": "docker-compose down",
+    "db:logs": "docker-compose logs -f mongodb",
+    "db:reset": "docker-compose down -v && docker-compose up -d",
+    "db:shell": "docker-compose exec mongodb mongosh -u payload -p payload",
     "test": "playwright test",
     "test:ui": "playwright test --ui",
-    "test:headed": "playwright test --headed"
+    "test:debug": "playwright test --debug",
+    "test:headed": "playwright test --headed",
+    "test:chrome": "playwright test --project=chromium",
+    "test:firefox": "playwright test --project=firefox",
+    "test:webkit": "playwright test --project=webkit",
+    "test:mobile": "playwright test --project='Mobile Chrome' --project='Mobile Safari'",
+    "test:report": "playwright show-report"
   },
   "dependencies": {
-    "@payloadcms/db-postgres": "3.63.0",
+    "@payloadcms/db-mongodb": "3.63.0",
     "@payloadcms/next": "3.63.0",
     "@payloadcms/richtext-lexical": "3.63.0",
     "@payloadcms/storage-vercel-blob": "3.63.0",
@@ -22,6 +31,8 @@
     "clsx": "^2.1.1",
     "daisyui": "^4.11.1",
     "graphql": "16.9.0",
+    "mongodb": "6.16.0",
+    "mongoose": "8.15.1",
     "next": "15.3.6",
     "next-themes": "^0.4.6",
     "payload": "3.63.0",
@@ -45,6 +56,8 @@
   "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e",
   "overrides": {
     "@types/react": "19.1.8",
-    "@types/react-dom": "19.1.6"
+    "@types/react-dom": "19.1.6",
+    "mongodb": "6.16.0",
+    "mongoose": "8.15.1"
   }
 }
