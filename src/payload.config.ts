@@ -67,7 +67,7 @@ export default buildConfig({
   db: mongooseAdapter({
     url:
       process.env.DATABASE_URL ||
-      "mongodb://payload:payload@localhost:27017/nextjs_tailwind_daisyui",
+      "mongodb://localhost:27017/nextjs_tailwind_daisyui",
   }),
   serverURL: process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000",
   sharp,

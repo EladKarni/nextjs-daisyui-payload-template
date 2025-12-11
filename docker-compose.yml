@@ -4,10 +4,6 @@ services:
     container_name: nextjs_mongodb
     ports:
       - "27017:27017"
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: payload
-      MONGO_INITDB_ROOT_PASSWORD: payload
-      MONGO_INITDB_DATABASE: nextjs_tailwind_daisyui
     volumes:
       - mongo_data:/data/db
       - mongo_config:/data/configdb
