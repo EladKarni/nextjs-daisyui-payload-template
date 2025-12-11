@@ -15,6 +15,9 @@ import {
   fallbackServices,
   fallbackProjects,
   fallbackTestimonials,
+  fallbackContactSection,
+  fallbackCompanyInfo,
+  fallbackProjectsPageData,
 } from "@/lib/fallbackData";
 import type {
   AboutSectionData,
@@ -39,43 +42,63 @@ export default async function Home() {
   let projects: any;
   let testimonials: any;
 
-  // Check if we're in draft mode for live preview
-  const { isEnabled: isDraftMode } = await draftMode();
+  // Check if we're in demo mode
+  const isDemoMode = process.env.DEMO_MODE === 'true';
 
-  try {
-    const payload = await getPayload({ config });
-
-    // Fetch all CMS data in parallel for better performance
-    [heroData, aboutData, processData, projectsSection, contactSection, companyInfo, services, projects, testimonials] = await Promise.all([
-      payload.findGlobal({ slug: "hero-section", draft: isDraftMode }),
-      payload.findGlobal({ slug: "about-section", draft: isDraftMode }),
-      payload.findGlobal({ slug: "process-section", draft: isDraftMode }),
-      payload.findGlobal({ slug: "projects-section", draft: isDraftMode }),
-      payload.findGlobal({ slug: "contact-section", draft: isDraftMode }),
-      payload.findGlobal({ slug: "company-info", draft: isDraftMode }),
-      payload.find({ collection: "services", draft: isDraftMode }),
-      payload.find({
-        collection: "projects",
-        where: { featured: { equals: true } },
-        limit: 6,
-        draft: isDraftMode,
-      }),
-      payload.find({
-        collection: "testimonials",
-        where: { featured: { equals: true } },
-        limit: 6,
-        draft: isDraftMode,
-      }),
-    ]);
-  } catch (error) {
-    // Use fallback data when CMS is unavailable (e.g., during build without database)
-    console.warn("CMS unavailable, using fallback data:", error);
+  if (isDemoMode) {
+    // Demo mode: Use all fallback data, skip CMS entirely
+    console.log("DEMO_MODE enabled: Using fallback data");
     heroData = fallbackHeroData;
     aboutData = fallbackAboutData;
     processData = fallbackProcessData;
+    projectsSection = fallbackProjectsPageData;
+    contactSection = fallbackContactSection;
+    companyInfo = fallbackCompanyInfo;
     services = { docs: fallbackServices };
     projects = { docs: fallbackProjects };
     testimonials = { docs: fallbackTestimonials };
+  } else {
+    // Check if we're in draft mode for live preview (only in non-demo mode)
+    const { isEnabled: isDraftMode } = await draftMode();
+
+    try {
+      const payload = await getPayload({ config });
+
+      // Fetch all CMS data in parallel for better performance
+      [heroData, aboutData, processData, projectsSection, contactSection, companyInfo, services, projects, testimonials] = await Promise.all([
+        payload.findGlobal({ slug: "hero-section", draft: isDraftMode }),
+        payload.findGlobal({ slug: "about-section", draft: isDraftMode }),
+        payload.findGlobal({ slug: "process-section", draft: isDraftMode }),
+        payload.findGlobal({ slug: "projects-section", draft: isDraftMode }),
+        payload.findGlobal({ slug: "contact-section", draft: isDraftMode }),
+        payload.findGlobal({ slug: "company-info", draft: isDraftMode }),
+        payload.find({ collection: "services", draft: isDraftMode }),
+        payload.find({
+          collection: "projects",
+          where: { featured: { equals: true } },
+          limit: 6,
+          draft: isDraftMode,
+        }),
+        payload.find({
+          collection: "testimonials",
+          where: { featured: { equals: true } },
+          limit: 6,
+          draft: isDraftMode,
+        }),
+      ]);
+    } catch (error) {
+      // Use fallback data when CMS is unavailable (e.g., during build without database)
+      console.warn("CMS unavailable, using fallback data:", error);
+      heroData = fallbackHeroData;
+      aboutData = fallbackAboutData;
+      processData = fallbackProcessData;
+      projectsSection = fallbackProjectsPageData;
+      contactSection = fallbackContactSection;
+      companyInfo = fallbackCompanyInfo;
+      services = { docs: fallbackServices };
+      projects = { docs: fallbackProjects };
+      testimonials = { docs: fallbackTestimonials };
+    }
   }
 
   // Extract background image URL if it's a Media object

@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import { getPayload } from "payload";
 import config from "@/payload.config";
 import { draftMode } from "next/headers";
+import { fallbackFooterSection, fallbackCompanyInfo } from "@/lib/fallbackData";
 
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
@@ -50,16 +51,29 @@ export default async function PublicLayout({
   let footerData: any;
   let companyInfo: any;
 
-  const { isEnabled: isDraftMode } = await draftMode();
+  // Check if we're in demo mode
+  const isDemoMode = process.env.DEMO_MODE === 'true';
 
-  try {
-    const payload = await getPayload({ config });
-    [footerData, companyInfo] = await Promise.all([
-      payload.findGlobal({ slug: "footer-section", draft: isDraftMode }),
-      payload.findGlobal({ slug: "company-info", draft: isDraftMode }),
-    ]);
-  } catch (error) {
-    console.warn("Failed to fetch footer data from CMS:", error);
+  if (isDemoMode) {
+    // Demo mode: Use fallback data only
+    console.log("DEMO_MODE enabled: Using fallback footer and company info");
+    footerData = fallbackFooterSection;
+    companyInfo = fallbackCompanyInfo;
+  } else {
+    // Non-demo mode: Fetch from CMS with draft support
+    const { isEnabled: isDraftMode } = await draftMode();
+
+    try {
+      const payload = await getPayload({ config });
+      [footerData, companyInfo] = await Promise.all([
+        payload.findGlobal({ slug: "footer-section", draft: isDraftMode }),
+        payload.findGlobal({ slug: "company-info", draft: isDraftMode }),
+      ]);
+    } catch (error) {
+      console.warn("Failed to fetch footer data from CMS:", error);
+      footerData = fallbackFooterSection;
+      companyInfo = fallbackCompanyInfo;
+    }
   }
 
   return (

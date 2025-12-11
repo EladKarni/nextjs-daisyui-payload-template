@@ -3,7 +3,7 @@ import SectionContainer from "@/ui/SectionContainer";
 import { getPayload } from "payload";
 import config from "@/payload.config";
 import { draftMode } from "next/headers";
-import { fallbackProjectsPageData } from "@/lib/fallbackData";
+import { fallbackProjectsPageData, fallbackProjects } from "@/lib/fallbackData";
 import type { Project, ProjectsSectionData } from "@/types";
 
 // Enable ISR with on-demand revalidation for performance
@@ -14,29 +14,42 @@ export default async function ProjectsPage() {
   let projects: Project[] = [];
   let sectionData: ProjectsSectionData = fallbackProjectsPageData;
 
-  const { isEnabled: isDraftMode } = await draftMode();
+  // Check if we're in demo mode
+  const isDemoMode = process.env.DEMO_MODE === 'true';
 
-  try {
-    const payload = await getPayload({ config });
+  if (isDemoMode) {
+    // Demo mode: Use fallback data only
+    console.log("DEMO_MODE enabled: Using fallback projects");
+    projects = fallbackProjects as unknown as Project[];
+    sectionData = fallbackProjectsPageData;
+  } else {
+    // Non-demo mode: Fetch from CMS with draft support
+    const { isEnabled: isDraftMode } = await draftMode();
 
-    // Fetch projects and section data in parallel
-    const [projectsResult, projectsSectionData] = await Promise.all([
-      payload.find({
-        collection: "projects",
-        draft: isDraftMode,
-        limit: 100, // Get all projects
-        sort: "createdAt", // Oldest first (ascending)
-      }),
-      payload.findGlobal({
-        slug: "projects-section",
-        draft: isDraftMode,
-      }),
-    ]);
+    try {
+      const payload = await getPayload({ config });
 
-    projects = projectsResult.docs as unknown as Project[];
-    sectionData = projectsSectionData as unknown as ProjectsSectionData;
-  } catch (error) {
-    console.warn("Failed to fetch data from CMS:", error);
+      // Fetch projects and section data in parallel
+      const [projectsResult, projectsSectionData] = await Promise.all([
+        payload.find({
+          collection: "projects",
+          draft: isDraftMode,
+          limit: 100, // Get all projects
+          sort: "createdAt", // Oldest first (ascending)
+        }),
+        payload.findGlobal({
+          slug: "projects-section",
+          draft: isDraftMode,
+        }),
+      ]);
+
+      projects = projectsResult.docs as unknown as Project[];
+      sectionData = projectsSectionData as unknown as ProjectsSectionData;
+    } catch (error) {
+      console.warn("Failed to fetch data from CMS:", error);
+      projects = fallbackProjects as unknown as Project[];
+      sectionData = fallbackProjectsPageData;
+    }
   }
 
   // Extract page header data with fallbacks

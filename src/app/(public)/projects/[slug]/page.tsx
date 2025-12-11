@@ -7,6 +7,7 @@ import config from "@/payload.config";
 import { draftMode } from "next/headers";
 import { ReactElement } from "react";
 import ProjectGallery from "@/components/ProjectGallery";
+import { fallbackProjects, fallbackProjectDetails } from "@/lib/fallbackData";
 
 // Helper to render Lexical rich text to React elements
 function renderRichText(richText: any): ReactElement {
@@ -77,6 +78,18 @@ export const revalidate = 3600; // Cache for 1 hour, revalidate on-demand via we
 
 // Pre-generate static pages for all projects at build time
 export async function generateStaticParams() {
+  // Check if we're in demo mode
+  const isDemoMode = process.env.DEMO_MODE === 'true';
+
+  if (isDemoMode) {
+    // Demo mode: Generate params for fallback projects only
+    console.log("DEMO_MODE enabled: Generating static params for fallback projects");
+    return fallbackProjects.map((project) => ({
+      slug: project.slug,
+    }));
+  }
+
+  // Non-demo mode: Generate from CMS
   try {
     const payload = await getPayload({ config });
     const projects = await payload.find({
@@ -90,7 +103,10 @@ export async function generateStaticParams() {
     }));
   } catch (error) {
     console.warn("Failed to generate static params:", error);
-    return [];
+    // Fallback to demo projects if CMS is unavailable during build
+    return fallbackProjects.map((project) => ({
+      slug: project.slug,
+    }));
   }
 }
 
@@ -103,33 +119,49 @@ interface ProjectPageProps {
 export default async function ProjectPage({ params }: ProjectPageProps) {
   const { slug } = await params;
 
-  // Fetch project from CMS
-  const { isEnabled: isDraftMode } = await draftMode();
+  // Check if we're in demo mode
+  const isDemoMode = process.env.DEMO_MODE === 'true';
 
   let project: any = null;
 
-  try {
-    const payload = await getPayload({ config });
-    const result = await payload.find({
-      collection: "projects",
-      where: {
-        slug: {
-          equals: slug,
-        },
-      },
-      draft: isDraftMode,
-      limit: 1,
-    });
+  if (isDemoMode) {
+    // Demo mode: Use fallback project data
+    console.log(`DEMO_MODE enabled: Loading fallback project for slug: ${slug}`);
+    project = fallbackProjectDetails[slug];
 
-    if (result.docs.length > 0) {
-      project = result.docs[0];
+    if (!project) {
+      console.warn(`Project with slug "${slug}" not found in fallback data`);
+      notFound();
     }
-  } catch (error) {
-    console.warn("Failed to fetch project from CMS:", error);
-  }
+  } else {
+    // Non-demo mode: Fetch from CMS
+    const { isEnabled: isDraftMode } = await draftMode();
 
-  if (!project) {
-    notFound();
+    try {
+      const payload = await getPayload({ config });
+      const result = await payload.find({
+        collection: "projects",
+        where: {
+          slug: {
+            equals: slug,
+          },
+        },
+        draft: isDraftMode,
+        limit: 1,
+      });
+
+      if (result.docs.length > 0) {
+        project = result.docs[0];
+      }
+    } catch (error) {
+      console.warn("Failed to fetch project from CMS:", error);
+      // Try fallback data as last resort
+      project = fallbackProjectDetails[slug];
+    }
+
+    if (!project) {
+      notFound();
+    }
   }
 
   // Extract hero image URL from Media object
@@ -315,28 +347,39 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
 export async function generateMetadata({ params }: ProjectPageProps) {
   const { slug } = await params;
-  const { isEnabled: isDraftMode } = await draftMode();
+
+  // Check if we're in demo mode
+  const isDemoMode = process.env.DEMO_MODE === 'true';
 
   let project: any = null;
 
-  try {
-    const payload = await getPayload({ config });
-    const result = await payload.find({
-      collection: "projects",
-      where: {
-        slug: {
-          equals: slug,
-        },
-      },
-      draft: isDraftMode,
-      limit: 1,
-    });
+  if (isDemoMode) {
+    // Demo mode: Use fallback project data
+    project = fallbackProjectDetails[slug];
+  } else {
+    // Non-demo mode: Fetch from CMS
+    const { isEnabled: isDraftMode } = await draftMode();
 
-    if (result.docs.length > 0) {
-      project = result.docs[0];
+    try {
+      const payload = await getPayload({ config });
+      const result = await payload.find({
+        collection: "projects",
+        where: {
+          slug: {
+            equals: slug,
+          },
+        },
+        draft: isDraftMode,
+        limit: 1,
+      });
+
+      if (result.docs.length > 0) {
+        project = result.docs[0];
+      }
+    } catch (error) {
+      console.warn("Failed to fetch project metadata from CMS:", error);
+      project = fallbackProjectDetails[slug];
     }
-  } catch (error) {
-    console.warn("Failed to fetch project metadata from CMS:", error);
   }
 
   if (!project) {

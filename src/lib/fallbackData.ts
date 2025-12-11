@@ -172,3 +172,299 @@ export const fallbackTestimonials = [
     company: "Enterprise Systems Ltd",
   },
 ];
+
+export const fallbackContactSection = {
+  title: "Get In Touch",
+  nameLabel: "Name",
+  namePlaceholder: "Your name",
+  emailLabel: "Email",
+  emailPlaceholder: "your@email.com",
+  messageLabel: "Message",
+  messagePlaceholder: "Your message",
+  submitButtonText: "Send Message",
+};
+
+export const fallbackCompanyInfo = {
+  companyName: "Acme Corporation",
+  tagline: "Your Trusted Business Partner. We deliver innovative solutions that drive growth and success.",
+  email: "contact@acmecorp.com",
+  phone: "+1 (555) 123-4567",
+  phoneHref: "tel:+15551234567",
+  address: {
+    street: "123 Business Street",
+    city: "San Francisco",
+    state: "CA",
+    zip: "94102",
+    country: "United States",
+  },
+  socialMedia: {
+    github: "https://github.com",
+    linkedin: "https://linkedin.com",
+    twitter: "https://twitter.com",
+    instagram: "https://instagram.com",
+    facebook: "https://facebook.com",
+  },
+  businessHours: "Monday - Friday: 9:00 AM - 6:00 PM PST\nSaturday - Sunday: Closed",
+};
+
+export const fallbackFooterSection = {
+  services: [
+    { label: "Strategy Consulting", href: "/#solutions" },
+    { label: "Digital Development", href: "/#solutions" },
+    { label: "Business Analytics", href: "/#solutions" },
+    { label: "Creative Design", href: "/#solutions" },
+  ],
+  showQuickLinks: true,
+  legalLinks: [
+    { label: "Privacy Policy", href: "/privacy" },
+    { label: "Terms of Service", href: "/terms" },
+  ],
+  copyrightText: "Acme Corporation. All rights reserved.",
+};
+
+// Enhanced fallback projects with full detail data for individual project pages
+export const fallbackProjectDetails: Record<string, any> = {
+  "enterprise-dashboard": {
+    id: "1",
+    title: "Enterprise Dashboard",
+    description:
+      "A comprehensive analytics platform for large organizations to track performance and make data-driven decisions.",
+    slug: "enterprise-dashboard",
+    heroImage: "https://picsum.photos/id/0/1200/800",
+    image: "https://picsum.photos/id/0/1200/800",
+    category: "Digital Solutions",
+    technologies: [
+      { technology: "React", id: "1" },
+      { technology: "TypeScript", id: "2" },
+      { technology: "Node.js", id: "3" },
+      { technology: "PostgreSQL", id: "4" },
+      { technology: "Chart.js", id: "5" },
+    ],
+    featured: true,
+    client: "Global Enterprise Inc.",
+    duration: "6 months",
+    year: "2024",
+    fullDescription: {
+      root: {
+        children: [
+          {
+            type: "paragraph",
+            children: [
+              {
+                type: "text",
+                text: "We developed a comprehensive enterprise dashboard solution that empowers large organizations to track key performance indicators, visualize complex data sets, and make informed business decisions. The platform integrates with multiple data sources and provides real-time analytics capabilities.",
+              },
+            ],
+          },
+          {
+            type: "paragraph",
+            children: [
+              {
+                type: "text",
+                text: "The dashboard features customizable widgets, role-based access control, and advanced reporting capabilities that enable stakeholders at all levels to access the insights they need.",
+              },
+            ],
+          },
+        ],
+      },
+    },
+    features: [
+      { feature: "Real-time data visualization", id: "1" },
+      { feature: "Custom widget builder", id: "2" },
+      { feature: "Role-based access control", id: "3" },
+      { feature: "Advanced filtering and search", id: "4" },
+      { feature: "Export to multiple formats", id: "5" },
+      { feature: "Mobile-responsive design", id: "6" },
+    ],
+    challenge:
+      "The client needed a unified view of data from 15+ disparate systems, with real-time updates and complex permission requirements.",
+    solution:
+      "We built a scalable microservices architecture with a centralized data warehouse, custom API gateway, and flexible role-based access system.",
+    results: [
+      { value: "45%", metric: "Faster Decision Making", id: "1" },
+      { value: "30%", metric: "Cost Reduction", id: "2" },
+      { value: "99.9%", metric: "Uptime", id: "3" },
+    ],
+    gallery: [
+      {
+        image: "https://picsum.photos/id/1/1200/800",
+        caption: "Dashboard Overview",
+        id: "1",
+      },
+      {
+        image: "https://picsum.photos/id/2/1200/800",
+        caption: "Analytics View",
+        id: "2",
+      },
+      {
+        image: "https://picsum.photos/id/3/1200/800",
+        caption: "Custom Reports",
+        id: "3",
+      },
+    ],
+    createdAt: "2024-01-15T00:00:00.000Z",
+    updatedAt: "2024-01-15T00:00:00.000Z",
+  },
+  "mobile-commerce-app": {
+    id: "2",
+    title: "Mobile Commerce App",
+    description:
+      "A seamless shopping experience for modern consumers with intuitive design and powerful features.",
+    slug: "mobile-commerce-app",
+    heroImage: "https://picsum.photos/id/1/1200/800",
+    image: "https://picsum.photos/id/1/1200/800",
+    category: "Mobile Development",
+    technologies: [
+      { technology: "React Native", id: "1" },
+      { technology: "API Integration", id: "2" },
+      { technology: "Payment Systems", id: "3" },
+      { technology: "Firebase", id: "4" },
+      { technology: "Stripe", id: "5" },
+    ],
+    featured: true,
+    client: "Retail Innovations LLC",
+    duration: "4 months",
+    year: "2024",
+    fullDescription: {
+      root: {
+        children: [
+          {
+            type: "paragraph",
+            children: [
+              {
+                type: "text",
+                text: "We created a cutting-edge mobile commerce application that delivers a seamless shopping experience across iOS and Android platforms. The app features intuitive navigation, secure payment processing, and personalized product recommendations.",
+              },
+            ],
+          },
+          {
+            type: "paragraph",
+            children: [
+              {
+                type: "text",
+                text: "Built with performance and user experience in mind, the application handles thousands of concurrent users while maintaining fast load times and smooth animations.",
+              },
+            ],
+          },
+        ],
+      },
+    },
+    features: [
+      { feature: "One-tap checkout", id: "1" },
+      { feature: "Personalized recommendations", id: "2" },
+      { feature: "Secure payment integration", id: "3" },
+      { feature: "Wishlist and saved items", id: "4" },
+      { feature: "Order tracking", id: "5" },
+      { feature: "Push notifications", id: "6" },
+    ],
+    challenge:
+      "The client needed a mobile app that could handle high traffic during flash sales while providing a smooth user experience.",
+    solution:
+      "We implemented optimistic UI updates, intelligent caching strategies, and a robust backend infrastructure with auto-scaling capabilities.",
+    results: [
+      { value: "250%", metric: "Increase in Mobile Sales", id: "1" },
+      { value: "4.8/5", metric: "App Store Rating", id: "2" },
+      { value: "65%", metric: "User Retention Rate", id: "3" },
+    ],
+    gallery: [
+      {
+        image: "https://picsum.photos/id/4/1200/800",
+        caption: "Product Catalog",
+        id: "1",
+      },
+      {
+        image: "https://picsum.photos/id/5/1200/800",
+        caption: "Checkout Flow",
+        id: "2",
+      },
+      {
+        image: "https://picsum.photos/id/6/1200/800",
+        caption: "User Profile",
+        id: "3",
+      },
+    ],
+    createdAt: "2024-02-20T00:00:00.000Z",
+    updatedAt: "2024-02-20T00:00:00.000Z",
+  },
+  "brand-identity-system": {
+    id: "3",
+    title: "Brand Identity System",
+    description:
+      "A complete visual identity for a growing startup, including logo design, style guides, and brand assets.",
+    slug: "brand-identity-system",
+    heroImage: "https://picsum.photos/id/180/1200/800",
+    image: "https://picsum.photos/id/180/1200/800",
+    category: "Design",
+    technologies: [
+      { technology: "Design Systems", id: "1" },
+      { technology: "Branding", id: "2" },
+      { technology: "UI/UX", id: "3" },
+      { technology: "Figma", id: "4" },
+      { technology: "Adobe Creative Suite", id: "5" },
+    ],
+    featured: true,
+    client: "TechStart Ventures",
+    duration: "3 months",
+    year: "2024",
+    fullDescription: {
+      root: {
+        children: [
+          {
+            type: "paragraph",
+            children: [
+              {
+                type: "text",
+                text: "We developed a comprehensive brand identity system for a fast-growing startup in the technology sector. The project included logo design, color palette development, typography selection, and creation of detailed brand guidelines.",
+              },
+            ],
+          },
+          {
+            type: "paragraph",
+            children: [
+              {
+                type: "text",
+                text: "The brand system was designed to be flexible and scalable, allowing the company to maintain consistency across all touchpoints while adapting to different contexts and mediums.",
+              },
+            ],
+          },
+        ],
+      },
+    },
+    features: [
+      { feature: "Custom logo design", id: "1" },
+      { feature: "Comprehensive brand guidelines", id: "2" },
+      { feature: "Color palette and typography system", id: "3" },
+      { feature: "Marketing collateral templates", id: "4" },
+      { feature: "Social media assets", id: "5" },
+      { feature: "Presentation templates", id: "6" },
+    ],
+    challenge:
+      "The startup needed a professional brand identity that would help them stand out in a crowded market while appealing to both investors and customers.",
+    solution:
+      "We conducted extensive market research and stakeholder interviews to create a distinctive visual identity that balances professionalism with approachability.",
+    results: [
+      { value: "85%", metric: "Brand Recognition Increase", id: "1" },
+      { value: "3x", metric: "Social Media Engagement", id: "2" },
+      { value: "100%", metric: "Stakeholder Satisfaction", id: "3" },
+    ],
+    gallery: [
+      {
+        image: "https://picsum.photos/id/7/1200/800",
+        caption: "Logo Variations",
+        id: "1",
+      },
+      {
+        image: "https://picsum.photos/id/8/1200/800",
+        caption: "Brand Guidelines",
+        id: "2",
+      },
+      {
+        image: "https://picsum.photos/id/9/1200/800",
+        caption: "Marketing Materials",
+        id: "3",
+      },
+    ],
+    createdAt: "2024-03-10T00:00:00.000Z",
+    updatedAt: "2024-03-10T00:00:00.000Z",
+  },
+};
