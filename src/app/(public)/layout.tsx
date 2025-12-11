@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { siteMetadata, faviconConfig, openGraphDefaults } from "@/constants/metadata";
+import NavBar from "@/components/navbar";
+import NavLinks from "@/components/NavLinks";
+import Footer from "@/components/footer";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 import "./globals.css";
 
@@ -43,7 +47,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `
               try {
-                const savedTheme = localStorage.getItem('theme');
+                const savedTheme = localStorage.getItem('yk-theme');
                 const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
                 const theme = savedTheme || (prefersDark ? 'dark' : 'light');
                 document.documentElement.setAttribute('data-theme', theme);
@@ -53,7 +57,13 @@ export default function RootLayout({
         />
       </head>
       <body className={inter.className}>
-        {children}
+        <ThemeProvider>
+          <NavBar>
+            <NavLinks />
+          </NavBar>
+          {children}
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );
