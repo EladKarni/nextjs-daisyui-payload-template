@@ -16,9 +16,10 @@ const NavBar: FC<NavBarProps> = ({ children }) => {
   return (
     <header
       className={clsx(
-        "py-5 h-[100px] fixed top-0 left-0 w-full z-50 duration-300 min-w-[290px]",
+        "py-5 h-[100px] fixed top-0 left-0 w-full z-50 min-w-[290px]",
+        "transition-all duration-300 ease-in-out",
         hasScrolled
-          ? "bg-base-200 shadow-primary-900 shadow-md"
+          ? "bg-base-100/90 backdrop-blur-sm shadow-sm border-b border-base-300/50"
           : "bg-transparent"
       )}
     >

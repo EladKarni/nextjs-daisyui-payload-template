@@ -12,7 +12,7 @@ const MobileNavMenu = () => {
             <button
                 className="align-middle"
                 onClick={() => setIsOpenMobileMenu(true)}
-                aria-label="Hambuger Nav Menu"
+                aria-label="Open navigation menu"
             >
                 <svg
                     width={24}
@@ -39,30 +39,33 @@ const MobileNavMenu = () => {
             <div
                 onClick={() => setIsOpenMobileMenu(false)}
                 id="mobileMenuOverlay"
-                className={`fixed top-0 right-0 w-full h-[100dvh] bg-base-300 bg-opacity-50 z-[9999999] duration-100 ${isOpenMobileMenu
-                    ? "opacity-100 pointer-events-auto"
-                    : "opacity-0 pointer-events-none delay-300"
-                    }`}
+                className={`fixed top-0 right-0 w-full h-[100dvh] bg-base-300/60 backdrop-blur-sm z-[9999999] transition-all duration-200 ${
+                    isOpenMobileMenu
+                        ? "opacity-100 pointer-events-auto"
+                        : "opacity-0 pointer-events-none delay-300"
+                }`}
             >
                 <div
-                    className={`w-[80%] sm:w-[300px] justify-between pt-4 pb-4 bg-base-100 h-full duration-300 flex flex-col float-right	${isOpenMobileMenu ? "translate-x-0 delay-200" : "translate-x-full"
-                        }`}
+                    className={`w-[80%] sm:w-[300px] justify-between pt-4 pb-4 bg-base-100/95 backdrop-blur-md border-l border-base-300/50 h-full transition-all duration-300 flex flex-col float-right shadow-xl ${
+                        isOpenMobileMenu ? "translate-x-0 delay-200" : "translate-x-full"
+                    }`}
                 >
                     <div className="text-end mr-2 pr-2" id="mobileMenuX">
-                        <span
-                            className="p-8 mt-[-16px] float-right max-w-[20px] text-primary-content cursor-pointer"
+                        <button
+                            className="p-3 text-base-content/70 hover:text-base-content transition-colors duration-200 text-xl font-light"
                             onClick={() => setIsOpenMobileMenu(false)}
+                            aria-label="Close navigation menu"
                         >
-                            X
-                        </span>
+                            ✕
+                        </button>
                     </div>
                     <div className="flex flex-col h-full">
-                        <ul className="text-center text-off-white flex-1">
+                        <ul className="text-center flex-1">
                             {navLinkList.map((navLink) => (
                                 <li key={navLink.label}>
                                     <Link
                                         onClick={() => setIsOpenMobileMenu(false)}
-                                        className="block px-5 py-3.5 text-base-content hover:text-primary"
+                                        className="block px-5 py-4 text-base-content/80 hover:text-base-content hover:bg-base-200/50 transition-all duration-200 font-light tracking-wide"
                                         href={navLink.url}
                                     >
                                         {navLink.label}

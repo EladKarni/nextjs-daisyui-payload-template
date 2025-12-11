@@ -53,15 +53,16 @@ const NavLinks = () => {
     };
 
     return (
-        <nav className="flex items-center gap-6 max-lg:hidden">
-            <ul className="flex items-center gap-6">
+        <nav className="flex items-center gap-8 max-lg:hidden">
+            <ul className="flex items-center gap-8">
                 {navLinkList.map((navLink) => (
                     <li key={navLink.url}>
                         <Link
-                            className={`relative text-base-content font-semibold text-md w-fit block after:block after:content-[''] after:absolute after:h-[3px] after:bg-primary after:w-full after:transition after:duration-300 after:origin-center ${isActive(navLink.url)
-                                    ? "text-primary after:scale-x-100"
-                                    : "after:scale-x-0 after:hover:scale-x-100"
-                                }`}
+                            className={`text-base font-light tracking-wide transition-all duration-200 ${
+                                isActive(navLink.url)
+                                    ? "text-primary font-normal"
+                                    : "text-base-content/80 hover:text-base-content hover:opacity-80"
+                            }`}
                             href={navLink.url}
                         >
                             {navLink.label}
@@ -69,6 +70,7 @@ const NavLinks = () => {
                     </li>
                 ))}
             </ul>
+            <div className="h-5 w-px bg-base-300/50" />
             <ThemeToggle />
             <CTAButton href="/#contact" size="sm">
                 Get in Touch
