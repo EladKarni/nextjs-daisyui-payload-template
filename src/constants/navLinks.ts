@@ -25,6 +25,11 @@ export const navLinkList = [
     url: "/#process",
   },
   {
+    label: "Testimonials",
+    style: "default",
+    url: "/#testimonials",
+  },
+  {
     label: "Contact",
     style: "default",
     url: "/#contact",
