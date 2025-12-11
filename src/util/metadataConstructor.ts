@@ -1,39 +1,51 @@
 import { Metadata } from "next";
+import { siteMetadata, openGraphDefaults } from "@/constants/metadata";
 
-export function metadataConstructor({
-  title = "Acme Corporation",
-  description = "Acme Corporation is here to help you achieve your business goals",
-  image = "url-preview-image.png",
-  icons = "/favicon/favicon.ico",
-  noIndex = false,
-  customMetadata = {},
-}: {
+interface MetadataConstructorOptions {
   title?: string;
   description?: string;
   image?: string;
-  icons?: string;
+  url?: string;
   noIndex?: boolean;
+  keywords?: string[];
   customMetadata?: Partial<Metadata>;
-} = {}): Metadata {
+}
+
+export function metadataConstructor({
+  title,
+  description = siteMetadata.description,
+  image = siteMetadata.ogImage,
+  url,
+  noIndex = false,
+  keywords = siteMetadata.keywords,
+  customMetadata = {},
+}: MetadataConstructorOptions = {}): Metadata {
+  const pageTitle = title ? `${title} | ${siteMetadata.title}` : siteMetadata.title;
+  const canonicalUrl = url || siteMetadata.url;
+
   return {
-    title,
+    title: pageTitle,
     description,
+    keywords,
     openGraph: {
-      title,
+      ...openGraphDefaults,
+      url: canonicalUrl,
+      title: pageTitle,
       description,
-      images: [
-        {
-          url: image,
-        },
-      ],
+      images: [{ url: image }],
     },
-    icons,
+    twitter: {
+      card: "summary_large_image",
+      title: pageTitle,
+      description,
+      images: [image],
+    },
     ...(noIndex && {
       robots: {
         index: false,
         follow: false,
       },
     }),
-    ...customMetadata, // Merge custom metadata with default metadata
+    ...customMetadata,
   };
 }

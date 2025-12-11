@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { siteMetadata, faviconConfig, openGraphDefaults } from "@/constants/metadata";
 
 import "./globals.css";
 
@@ -7,26 +8,27 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
-    default: "Acme Corporation | Business Solutions & Services",
-    template: "%s | Acme Corporation",
+    default: siteMetadata.title,
+    template: `%s | ${siteMetadata.title}`,
   },
-  description: "Leading provider of innovative business solutions. We help organizations achieve their goals through strategy, technology, and design excellence.",
-  keywords: ["business solutions", "consulting", "digital services", "strategy", "technology", "design", "project management", "analytics"],
-  authors: [{ name: "Acme Corporation" }],
-  creator: "Acme Corporation",
+  description: siteMetadata.description,
+  keywords: siteMetadata.keywords,
+  authors: [{ name: siteMetadata.author.name, url: siteMetadata.author.url }],
+  creator: siteMetadata.author.name,
   openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "https://example.com/",
-    title: "Acme Corporation | Business Solutions & Services",
-    description: "Leading provider of innovative business solutions. We help organizations achieve their goals through strategy, technology, and design excellence.",
-    siteName: "Acme Corporation",
+    ...openGraphDefaults,
+    url: siteMetadata.url,
+    title: siteMetadata.title,
+    description: siteMetadata.description,
+    images: [{ url: siteMetadata.ogImage }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Acme Corporation | Business Solutions & Services",
-    description: "Leading provider of innovative business solutions. We help organizations achieve their goals through strategy, technology, and design excellence.",
+    title: siteMetadata.title,
+    description: siteMetadata.description,
+    images: [siteMetadata.ogImage],
   },
+  ...faviconConfig,
 };
 
 export default function RootLayout({

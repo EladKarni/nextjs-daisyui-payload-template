@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { getPayload } from "payload";
 import config from "@/payload.config";
@@ -19,25 +18,6 @@ const inter = Inter({
   variable: "--font-inter",
   weight: ["400", "500", "600", "700"],
 });
-
-export const metadata: Metadata = {
-  title: "Acme Corporation",
-  description: "Acme Corporation is here to help you achieve your business goals",
-  icons: {
-    icon: [
-      { url: "/favicon/favicon-96x96.png", sizes: "96x96", type: "image/png" },
-      { url: "/favicon/favicon.svg", type: "image/svg+xml" },
-      { url: "/favicon/favicon.ico", sizes: "32x32", type: "image/x-icon" },
-    ],
-    apple: [
-      { url: "/favicon/apple-touch-icon.png", sizes: "180x180" },
-    ],
-  },
-  manifest: "/favicon/site.webmanifest",
-  appleWebApp: {
-    title: "Acme Corporation",
-  },
-};
 
 // Enable ISR with on-demand revalidation for performance
 export const revalidate = 3600; // Cache for 1 hour, revalidate on-demand via webhook
