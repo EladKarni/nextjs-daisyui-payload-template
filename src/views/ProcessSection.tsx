@@ -8,6 +8,11 @@ import type { ProcessSectionProps } from "@/types";
 const ProcessSection: FC<ProcessSectionProps> = ({ data }) => {
   const { title, subtitle, steps } = data;
 
+  // Don't render if there are no steps
+  if (!steps || steps.length === 0) {
+    return null;
+  }
+
   return (
     <SectionContainer sectionName="process" background="alt">
       <SectionHeader title={title} subtitle={subtitle} />
