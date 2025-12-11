@@ -139,7 +139,7 @@ export const Projects: CollectionConfig = {
       name: "heroImage",
       type: "upload",
       relationTo: "media",
-      required: true,
+      required: false,
     },
     {
       name: "gallery",

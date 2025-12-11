@@ -165,36 +165,13 @@ const seed = async () => {
       }
     }
 
-    // ⚠️ Projects require actual image file uploads
-    // The Media collection requires real file uploads, not just URLs
-    // You can create projects manually via the admin panel at /admin
-    console.log(
-      "📁 Projects require image uploads - please create via admin panel"
-    );
-    console.log("   Go to /admin to create projects with uploaded images");
-
-    // Update Globals
-    console.log("🌍 Updating global settings...");
-
-    // Company Info
-    await payload.updateGlobal({
-      slug: "company-info",
-      data: {
-        companyName: "Engineering Solutions Pro",
-        email: "contact@engineeringsolutions.com",
-        phone: "+1 (555) 123-4567",
-        address: "123 Innovation Drive, Tech Valley, CA 94025",
-        socialMedia: {
-          linkedin: "https://linkedin.com/company/engineering-solutions",
-          twitter: "https://twitter.com/engsolutions",
-          github: "https://github.com/engsolutions",
-        },
-      },
-    });
-    console.log("  ✓ Updated company info");
-
-    // Hero Section
-    await payload.updateGlobal({
+    // Create Projects
+    console.log("📁 Creating projects...");
+    const projects = [
+      {
+        title: "Smart Home IoT Hub",
+        slug: "smart-home-iot-hub",
+        description:
           "A central control hub for managing smart home devices with custom PCB design and embedded firmware.",
         fullDescription: {
           root: {
@@ -217,7 +194,6 @@ const seed = async () => {
         year: "2024",
         featured: true,
         order: 1,
-        heroImage: mediaIds[0],
         features: [
           { feature: "Multi-protocol wireless connectivity" },
           { feature: "Custom PCB with power management" },
@@ -240,7 +216,151 @@ const seed = async () => {
           { metric: "Response time", value: "<100ms" },
         ],
       },
-    };
+      {
+        title: "Industrial Robotic Arm Controller",
+        slug: "industrial-robotic-arm-controller",
+        description:
+          "Precision controller for 6-axis industrial robotic arm with real-time motion planning and safety features.",
+        fullDescription: {
+          root: {
+            type: "root",
+            children: [
+              {
+                type: "paragraph",
+                children: [
+                  {
+                    type: "text",
+                    text: "Designed and manufactured a high-precision controller for industrial automation. Features include inverse kinematics calculations, collision detection, and integration with industrial PLCs. The system provides sub-millimeter accuracy for automated assembly operations.",
+                  },
+                ],
+              },
+            ],
+          },
+        },
+        client: "Industrial Robotics Inc",
+        duration: "10 months",
+        year: "2023",
+        featured: true,
+        order: 2,
+        features: [
+          { feature: "Real-time motion planning" },
+          { feature: "Safety interlock system" },
+          { feature: "Modbus TCP communication" },
+          { feature: "Teach pendant interface" },
+        ],
+        technologies: [
+          { technology: "STM32 microcontroller" },
+          { technology: "Altium Designer" },
+          { technology: "Real-time Linux" },
+          { technology: "CAN bus" },
+        ],
+        challenge:
+          "Achieving precise positioning with repeatability under ±0.05mm while maintaining safety compliance and real-time performance.",
+        solution:
+          "Developed custom motion control algorithms with predictive path planning and implemented redundant safety systems meeting ISO 10218 standards.",
+        results: [
+          { metric: "Positioning accuracy", value: "±0.03mm" },
+          { metric: "Cycle time improvement", value: "35%" },
+          { metric: "Safety rating", value: "ISO 10218 compliant" },
+        ],
+      },
+      {
+        title: "Portable Medical Diagnostic Device",
+        slug: "portable-medical-diagnostic-device",
+        description:
+          "FDA-compliant portable diagnostic device for point-of-care testing with wireless data transmission.",
+        fullDescription: {
+          root: {
+            type: "root",
+            children: [
+              {
+                type: "paragraph",
+                children: [
+                  {
+                    type: "text",
+                    text: "Created a handheld medical diagnostic device for rapid testing in clinical settings. The device features precision sensors, secure data transmission, and compliance with medical device regulations. Includes custom injection-molded enclosure design.",
+                  },
+                ],
+              },
+            ],
+          },
+        },
+        client: "MedTech Innovations",
+        duration: "12 months",
+        year: "2024",
+        featured: true,
+        order: 3,
+        features: [
+          { feature: "Multi-parameter testing" },
+          { feature: "Secure cloud connectivity" },
+          { feature: "Battery life: 500+ tests" },
+          { feature: "FDA 510(k) cleared" },
+        ],
+        technologies: [
+          { technology: "Medical-grade sensors" },
+          { technology: "Bluetooth Low Energy" },
+          { technology: "SolidWorks CAD" },
+          { technology: "ISO 13485 process" },
+        ],
+        challenge:
+          "Meeting stringent FDA requirements while creating a user-friendly device that healthcare professionals could operate reliably in various environments.",
+        solution:
+          "Implemented comprehensive validation testing, robust error handling, and designed an intuitive interface with visual and audio feedback.",
+        results: [
+          { metric: "FDA clearance", value: "First submission" },
+          { metric: "Test accuracy", value: "99.2%" },
+          { metric: "User satisfaction", value: "4.8/5" },
+        ],
+      },
+      {
+        title: "Automotive Sensor Module",
+        slug: "automotive-sensor-module",
+        description:
+          "Ruggedized environmental sensor module for automotive applications with CAN bus integration.",
+        fullDescription: {
+          root: {
+            type: "root",
+            children: [
+              {
+                type: "paragraph",
+                children: [
+                  {
+                    type: "text",
+                    text: "Developed a compact sensor module for automotive applications capable of operating in extreme conditions. Features multi-sensor fusion, vibration resistance, and compliance with automotive standards.",
+                  },
+                ],
+              },
+            ],
+          },
+        },
+        client: "AutoTech Systems",
+        duration: "6 months",
+        year: "2023",
+        featured: false,
+        order: 4,
+        features: [
+          { feature: "Temperature range: -40°C to 125°C" },
+          { feature: "IP67 waterproof rating" },
+          { feature: "Vibration resistant design" },
+          { feature: "CAN 2.0B interface" },
+        ],
+        technologies: [
+          { technology: "Automotive-grade components" },
+          { technology: "ADAS testing" },
+          { technology: "Eagle PCB" },
+          { technology: "Conformal coating" },
+        ],
+        challenge:
+          "Creating a reliable sensor that could withstand harsh automotive environments while maintaining accuracy across a wide temperature range.",
+        solution:
+          "Used automotive-grade components, implemented thermal management, and extensive environmental testing to ensure reliability.",
+        results: [
+          { metric: "Operating temperature", value: "-40°C to 125°C" },
+          { metric: "MTBF", value: "50,000 hours" },
+          { metric: "Production cost", value: "30% reduction" },
+        ],
+      },
+    ];
 
     for (const project of projects) {
       const existing = await payload.find({
@@ -399,11 +519,12 @@ const seed = async () => {
     console.log("\n📝 What was seeded:");
     console.log("   ✓ 6 Services");
     console.log("   ✓ 4 Testimonials");
+    console.log("   ✓ 4 Projects (without hero images)");
     console.log(
       "   ✓ All Global Settings (Hero, About, Process, Contact, Footer, Projects Section, Company Info)"
     );
     console.log(
-      "\n📁 Projects require image uploads - create them via /admin panel"
+      "\n💡 Note: Projects were created without hero images. You can add images via /admin panel"
     );
     console.log("\n🔐 Admin credentials:");
     console.log("   Email: admin@example.com");
